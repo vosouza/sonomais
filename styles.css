@@ -75,12 +75,18 @@ body {
 .product-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     gap: 20px;
+    justify-content: center;
+}
+
+.product-item {
+    width: 200px; /* Ou qualquer largura fixa que use no desktop */
+    text-align: center;
 }
 
 .product-item img {
-    width: 200px;
+    width: 100%;
+    height: auto;
     border-radius: 5px;
 }
 
@@ -157,6 +163,10 @@ footer {
     }
 
     .product-grid {
-        flex-direction: column;
+        justify-content: space-between; /* ou flex-start */
+    }
+
+    .product-item {
+        width: calc(50% - 10px);
     }
 }
