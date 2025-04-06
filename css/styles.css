@@ -11,9 +11,23 @@ body {
 }
 
 .container {
-    width: 90%; /* Define uma largura menor que 100% */
-    max-width: 1200px; /* Limita a largura máxima em telas grandes */
-    margin: 0 auto; /* Centraliza o conteúdo */
+    width: 90%;
+    /* Define uma largura menor que 100% */
+    max-width: 1200px;
+    /* Limita a largura máxima em telas grandes */
+    margin: 0 auto;
+    /* Centraliza o conteúdo */
+}
+
+.container-title {
+    padding-top: 64px;
+    padding-bottom: 64px;
+    align-items: center;
+}
+
+.container-title h2{
+    font-size: 3em;
+    padding-bottom: 32px;
 }
 
 .navbar {
@@ -31,6 +45,8 @@ body {
 
 .nav-links {
     list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     gap: 20px;
 }
@@ -42,12 +58,36 @@ body {
 
 .menu-icon {
     display: none;
-    font-size: 24px;
+    flex-direction: column;
     cursor: pointer;
+    width: 25px;
+    height: 20px;
+    justify-content: space-between;
 }
 
+.menu-icon .bar {
+    height: 3px;
+    width: 100%;
+    background-color: #333;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.menu-icon.open .bar:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-icon.open .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-icon.open .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+
 .hero {
-    background: url('C:/projets/sonomais/images/hero.jpg') center/cover no-repeat;
+    background: url('/images/hero.jpg') center/cover no-repeat;
     background-position: 50% 65%;
     background-size: cover;
     height: 300px;
@@ -80,7 +120,8 @@ body {
 }
 
 .product-item {
-    width: 200px; /* Ou qualquer largura fixa que use no desktop */
+    width: 200px;
+    /* Ou qualquer largura fixa que use no desktop */
     text-align: center;
 }
 
@@ -121,13 +162,13 @@ footer {
     gap: 10px;
 }
 
-.social-icons a img {
-    width: 30px;
-    height: 30px;
+.social-icons a {
+    color: #333;
+    font-size: 32px;
     transition: transform 0.3s ease;
 }
 
-.social-icons a:hover img {
+.social-icons a:hover {
     transform: scale(1.2);
 }
 
@@ -137,33 +178,60 @@ footer {
     font-size: 0.9rem;
 }
 
+.no-scroll {
+    overflow: hidden;
+    height: 100vh;
+}
 
 /* Responsivo */
 @media (max-width: 768px) {
     .nav-links {
         display: none;
-        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
         background: white;
-        position: absolute;
-        top: 60px;
-        right: 20px;
-        width: 150px;
+        flex-direction: column;
+        align-items: center;  /* centraliza horizontalmente */
+        justify-content: flex-start; /* alinha no topo */
+        padding-top: 100px; /* espaço do topo */
+        z-index: 1000;
+        list-style: none;
+        padding-inline-start: 0;
     }
 
     .nav-links.active {
         display: flex;
     }
 
+    .nav-links li {
+        padding: 15px 0;
+        font-size: 1.2rem;
+    }
+
     .menu-icon {
-        display: block;
+        display: flex;
+        z-index: 1100; /* acima do menu */
+        position: relative;
     }
 
     .hero {
         height: 200px;
     }
 
+    .container-title{
+        padding-top: 16px;
+    }
+
+    .container-title h2{
+        font-size: 2em;
+    }
+
     .product-grid {
-        justify-content: space-between; /* ou flex-start */
+        justify-content: space-between;
+        /* ou flex-start */
     }
 
     .product-item {

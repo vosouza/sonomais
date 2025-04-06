@@ -3,23 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Dawn - Loja de Bolsas</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script defer src="/scripts/script.js"></script>
 </head>
 <body>
     <header>
         <nav class="navbar">
             <div class="container">
                 <div class="logo">Sono+</div>
-                <ul class="nav-links">
-                    <li><a href="#">Estofados</a></li>
-                    <li><a href="#">Colchões</a></li>
-                    <li><a href="#">Sobre</a></li>
-                </ul>
-                <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+              <ul class="nav-links" id="navLinks">
+                <li><a href="#">Estofados</a></li>
+                <li><a href="#">Colchões</a></li>
+                <li><a href="#">Sobre</a></li>
+              </ul>
+              <div class="menu-icon" id="menuIcon" onclick="toggleMenu()">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+              </div>
             </div>
-        </nav>
+          </nav>
+          
     </header>
 
     <section class="hero">
@@ -33,59 +39,62 @@
 
     <section class="products">
         <div class="container">
-            <h2>Obsessive Attention. Intelligent Effort.</h2>
-            <p>Functional handbags made of luxurious and honest materials.</p>
+            <div class="container-title">
+                <h2>Obsessive Attention. Intelligent Effort.</h2>
+                <p>Functional handbags made of luxurious and honest materials.</p>
+            </div>
             <div class="product-grid">
                 <div class="product-item">
-                    <img src="C:/projets/sonomais/images/produto1.png" alt="Bag 1">
+                    <img src="/images/produto1.png" alt="Bag 1">
+                    <p>Hobo Small - $195.00 CAD</p>
                     <p>Hobo Small - $195.00 CAD</p>
                 </div>
                 <div class="product-item">
-                    <img src="C:/projets/sonomais/images/produto1.png" alt="Bag 2">
+                    <img src="/images/produto1.png" alt="Bag 2">
                     <p>Bo Soft Strap - $365.00 CAD</p>
                 </div>
                 <div class="product-item">
-                    <img src="C:/projets/sonomais/images/produto1.png" alt="Bag 2">
+                    <img src="/images/produto1.png" alt="Bag 2">
                     <p>Bo Soft Strap - $365.00 CAD</p>
                 </div>
                 <div class="product-item">
-                    <img src="C:/projets/sonomais/images/produto1.png" alt="Bag 2">
+                    <img src="/images/produto1.png" alt="Bag 2">
                     <p>Bo Soft Strap - $365.00 CAD</p>
                 </div>
                 <div class="product-item">
-                    <img src="C:/projets/sonomais/images/produto1.png" alt="Bag 2">
+                    <img src="/images/produto1.png" alt="Bag 2">
                     <p>Bo Soft Strap - $365.00 CAD</p>
                 </div>
                 <div class="product-item">
-                    <img src="C:/projets/sonomais/images/produto1.png" alt="Bag 2">
+                    <img src="/images/produto1.png" alt="Bag 2">
                     <p>Bo Soft Strap - $365.00 CAD</p>
                 </div>
                 <div class="product-item">
-                    <img src="C:/projets/sonomais/images/produto1.png" alt="Bag 2">
+                    <img src="/images/produto1.png" alt="Bag 2">
                     <p>Bo Soft Strap - $365.00 CAD</p>
                 </div>
                 <div class="product-item">
-                    <img src="C:/projets/sonomais/images/produto1.png" alt="Bag 2">
+                    <img src="/images/produto1.png" alt="Bag 2">
                     <p>Bo Soft Strap - $365.00 CAD</p>
                 </div>
                 <div class="product-item">
-                    <img src="C:/projets/sonomais/images/produto1.png" alt="Bag 2">
+                    <img src="/images/produto1.png" alt="Bag 2">
                     <p>Bo Soft Strap - $365.00 CAD</p>
                 </div>
                 <div class="product-item">
-                    <img src="C:/projets/sonomais/images/produto1.png" alt="Bag 2">
+                    <img src="/images/produto1.png" alt="Bag 2">
                     <p>Bo Soft Strap - $365.00 CAD</p>
                 </div>
                 <div class="product-item">
-                    <img src="C:/projets/sonomais/images/produto1.png" alt="Bag 2">
+                    <img src="/images/produto1.png" alt="Bag 2">
                     <p>Bo Soft Strap - $365.00 CAD</p>
                 </div>
                 <div class="product-item">
-                    <img src="C:/projets/sonomais/images/produto1.png" alt="Bag 2">
+                    <img src="/images/produto1.png" alt="Bag 2">
                     <p>Bo Soft Strap - $365.00 CAD</p>
                 </div>
                 <div class="product-item">
-                    <img src="C:/projets/sonomais/images/produto1.png" alt="Bag 2">
+                    <img src="/images/produto1.png" alt="Bag 2">
                     <p>Bo Soft Strap - $365.00 CAD</p>
                 </div>
             </div>
@@ -107,11 +116,9 @@
                 <div class="footer-section">
                     <h3>Nos siga</h3>
                     <div class="social-icons">
-                        <a href="#"><img src="icons/facebook.svg" alt="Facebook"></a>
-                        <a href="#"><img src="icons/instagram.svg" alt="Instagram"></a>
-                        <a href="#"><img src="icons/twitter.svg" alt="Twitter"></a>
-                        <a href="#"><img src="icons/tiktok.svg" alt="TikTok"></a>
-                        <a href="#"><img src="icons/youtube.svg" alt="YouTube"></a>
+                        <a href="#"><span class="material-icons">facebook</span></a>
+                        <a href="#"><span class="material-icons">photo_camera</span></a>
+                        <a href="#"><span class="material-icons">smart_display </span></a>
                     </div>
                 </div>
             </div>
