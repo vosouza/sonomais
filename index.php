@@ -39,7 +39,7 @@
     <section class="products">
         <div class="container">
             <div class="container-title">
-                <h2>Obsessive Attention. Intelligent Effort.</h2>
+                <h2>Os melhores produtos para seu lar.</h2>
                 <p>Functional handbags made of luxurious and honest materials.</p>
             </div>
             <div class="product-grid">
