@@ -36,7 +36,6 @@
             </div>
         </div>
     </section>
-
     <section class="products">
         <div class="container">
             <div class="container-title">
