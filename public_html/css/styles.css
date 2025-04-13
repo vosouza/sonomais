@@ -1,0 +1,240 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #fff;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    /* Define uma largura menor que 100% */
+    max-width: 1200px;
+    /* Limita a largura máxima em telas grandes */
+    margin: 0 auto;
+    /* Centraliza o conteúdo */
+}
+
+.container-title {
+    padding-top: 64px;
+    padding-bottom: 64px;
+    align-items: center;
+}
+
+.container-title h2{
+    font-size: 3em;
+    padding-bottom: 32px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.menu-icon {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    width: 25px;
+    height: 20px;
+    justify-content: space-between;
+}
+
+.menu-icon .bar {
+    height: 3px;
+    width: 100%;
+    background-color: #333;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.menu-icon.open .bar:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-icon.open .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-icon.open .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+
+.hero {
+    background: url('/images/hero.jpg') center/cover no-repeat;
+    background-position: 50% 65%;
+    background-size: cover;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.hero-content {
+    width: 90%;
+    max-width: 800px;
+}
+
+.hero-content h1 {
+    font-size: 2rem;
+}
+
+.products {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.product-item {
+    width: 200px;
+    /* Ou qualquer largura fixa que use no desktop */
+    text-align: center;
+}
+
+.product-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+footer {
+    background: #f8f8f8;
+    padding: 40px 0;
+    color: #333;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+}
+
+.footer-section h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.social-icons a {
+    color: #333;
+    font-size: 32px;
+    transition: transform 0.3s ease;
+}
+
+.social-icons a:hover {
+    transform: scale(1.2);
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+.no-scroll {
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: white;
+        flex-direction: column;
+        align-items: center;  /* centraliza horizontalmente */
+        justify-content: flex-start; /* alinha no topo */
+        padding-top: 100px; /* espaço do topo */
+        z-index: 1000;
+        list-style: none;
+        padding-inline-start: 0;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        padding: 15px 0;
+        font-size: 1.2rem;
+    }
+
+    .menu-icon {
+        display: flex;
+        z-index: 1100; /* acima do menu */
+        position: relative;
+    }
+
+    .hero {
+        height: 200px;
+    }
+
+    .container-title{
+        padding-top: 16px;
+    }
+
+    .container-title h2{
+        font-size: 2em;
+    }
+
+    .product-grid {
+        justify-content: space-between;
+        /* ou flex-start */
+    }
+
+    .product-item {
+        width: calc(50% - 10px);
+    }
+}

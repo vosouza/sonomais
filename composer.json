@@ -1,0 +1,17 @@
+{
+    "name": "vosouza/sonomais",
+    "description": "projeto site loja sonomais",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Vosouza\\Sonomais\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "vinicius",
+            "email": "cpudvini@gmail.com"
+        }
+    ],
+    "require": {}
+}
