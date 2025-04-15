@@ -53,24 +53,10 @@ class Product {
         $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
         $isStar = filter_var($_POST['isStar'], FILTER_VALIDATE_BOOLEAN);
 
-        $image = $_FILES['image'];
-        $imageName = $image['name'];
-        $imageTmpName = $image['tmp_name'];
-        $imageError = $image['error'];
-
-        // Verifique se não houve erros no upload
-        if ($imageError === UPLOAD_ERR_OK) {
-            // Mova o arquivo temporário para um local permanente
-            $destination = __DIR__.'/../../public_html/images/' . $imageName; // Defina o diretório de destino
-            move_uploaded_file($imageTmpName, $destination);
-
-            // Armazene o caminho da imagem no objeto Product
-            $imagePath = $destination;
-        } else {
-            echo 'Erro no upload da imagem';
-            echo $imageError;
-            // 
-            return null;
+        $imagePath = self::uploadImage($_FILES['image'], $name);
+        if ($imagePath === null) {
+            echo 'erro no upload da imagem';
+            return null; // Falha no upload da imagem
         }
 
         // Validação adicional (opcional)
@@ -88,4 +74,45 @@ class Product {
             $isStar
         );
     }
+
+    private static function uploadImage(array $imageFile, string $productName): ?string
+    {
+        if ($imageFile['error'] === UPLOAD_ERR_OK) {
+            $originalName = $imageFile['name'];
+            $tmpName = $imageFile['tmp_name'];
+            $uniqueName = self::generateUniqueImageName($originalName, $productName);
+            $uploadDir = '/images/';
+            $destinationPath = __DIR__.'/../../public_html' . $uploadDir . $uniqueName;
+            $relativeImagePath = $uploadDir . $uniqueName;
+
+            if (move_uploaded_file($tmpName, $destinationPath)) {
+                return $relativeImagePath;
+            } else {
+                echo 'Erro ao mover o arquivo para o destino.';
+                return null;
+            }
+        } else {
+            echo 'Erro no upload da imagem: ' . $imageFile['error'];
+            return null;
+        }
+    }
+
+    private static function generateUniqueImageName(string $originalName, string $productName): string
+    {
+        $extension = pathinfo($originalName, PATHINFO_EXTENSION);
+        $nameWithoutExtension = pathinfo($originalName, PATHINFO_FILENAME);
+
+        // Remove espaços e converte para lowercase
+        $sanitizedProductName = strtolower(str_replace(' ', '-', $productName));
+
+        // Remove caracteres especiais (mantém letras, números e hífens)
+        $sanitizedProductName = preg_replace('/[^a-z0-9-]+/', '', $sanitizedProductName);
+
+        // Adiciona a data e hora do upload para garantir a unicidade
+        $timestamp = date('YmdHis');
+
+        return $sanitizedProductName . '-' . $timestamp . '.' . $extension;
+    }
+
+
 }
