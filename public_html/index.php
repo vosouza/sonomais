@@ -4,23 +4,17 @@ declare(strict_types=1);
 
 require_once '../vendor/autoload.php';
 
+use Vosouza\Sonomais\data\repository\ProductRepository;
+use Vosouza\Sonomais\view\dashboard\DashboardView;
+use Vosouza\Sonomais\view\home\HomeView;
 use Vosouza\Sonomais\data\{
     DataSource,
     SQLiteDataSource
 };
 
-use Vosouza\Sonomais\data\repository\{
-    ProductRepository,
-};
-
 use Vosouza\Sonomais\controller\{
     HomeViewController,
     DashViewController
-};
-
-
-use Vosouza\Sonomais\view\home\{
-    HomeView,
 };
 
 $dataSource = new SQLiteDataSource();
@@ -33,8 +27,11 @@ try{
         $controller = new HomeViewController($view, $repo);
         
     }else if(!array_key_exists('PATH_INFO', $_SERVER) || $_SERVER['PATH_INFO'] === '/dash'){
+        
         $repo = new ProductRepository($dataSource);
-        $controller = new DashViewController($repo);
+        $view = new DashboardView();
+        $controller = new DashViewController($view, $repo);
+        
     }
 
 
