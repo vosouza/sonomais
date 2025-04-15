@@ -24,7 +24,7 @@ class DashViewController implements Controller{
             $product = Product::fromPost();
 
             if ($product) {
-                $this->productRepository->insert($product);
+                $this->productRepository->insert(product: $product);
             } else {
                 echo "Erro ao processar o formulário.";
             }
