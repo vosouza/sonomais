@@ -46,7 +46,7 @@
                 
                 {% for product in products %}
                     <div class="product-item">
-                        <img src="/images/produto1.png" alt="Bag 1">
+                        <img src={{product.image}} alt={{product.name}}>
                         <p>{{ product.name }}</p>
                     </div>
                 {% endfor %}
