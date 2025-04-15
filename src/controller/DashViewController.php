@@ -32,6 +32,8 @@ class DashViewController implements Controller{
     }
 
     public function processaRequisicao(): void{
-        $this->view->show();
+        $products = $this->productRepository->findAll();
+        var_dump($products);
+        $this->view->show(["products"=> $products]);
     }
 }

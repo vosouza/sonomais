@@ -66,27 +66,19 @@
       </div>
 
       <div class="product-list">
-        <div class="product-item">
-          <img src="../images/produto1.png" alt="Produto">
-          <div>
-            <h3>Fone Bluetooth</h3>
-            <p>Fone de ouvido sem fio como cancelamento de ruído</p>
-            <p><strong>Tipo:</strong> Eletrônico</p>
-            <p><strong>Preço:</strong> R$ 199,90</p>
-            <p><strong>Destaque:</strong> Sim</p>
-          </div>
-        </div>
 
+        {% for product in products %}
         <div class="product-item">
-          <img src="../images/produto1.png" alt="Produto">
+          <img src={{product.image}} alt="Produto">
           <div>
-            <h3>Camiseta Estampada</h3>
-            <p>Camiseta em algodão com estampa exclusiva</p>
-            <p><strong>Tipo:</strong> Vestuário</p>
-            <p><strong>Preço:</strong> R$ 49,90</p>
-            <p><strong>Destaque:</strong> Não</p>
+            <h3>{{product.name}}</h3>
+            <p>{{product.description}}</p>
+            <p><strong>Tipo:</strong> {{product.type}}</p>
+            <p><strong>Preço:</strong> {{product.price}}</p>
+            <p><strong>Destaque:</strong> {{product.isStar}}</p>
           </div>
         </div>
+        {% endfor %}
       </div>
     </main>
   </div>

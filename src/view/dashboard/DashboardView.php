@@ -19,7 +19,7 @@ class DashboardView implements ViewInterface
     public function show(array $data = []): void
     {
         // $product = [];
-        echo $this->twig->render('dashboard.html.twig', []);
+        echo $this->twig->render('dashboard.html.twig', $data);
     }
 
 }
