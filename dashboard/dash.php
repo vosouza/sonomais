@@ -18,45 +18,45 @@
     <main class="main-content">
       <h1>Cadastro de Produto</h1>
       
-      <form class="product-form">
-        <div class="form-group">
-          <label for="productImage">Imagem do produto</label>
-          <input type="file" id="productImage" accept="image/*">
-        </div>
+    <form class="product-form" action="/dash" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="image">Imagem do produto</label>
+        <input type="file" id="image" name="image" accept="image/*">
+      </div>
 
-        <div class="form-group">
-          <label for="productName">Nome</label>
-          <input type="text" id="productName" placeholder="Digite o nome">
-        </div>
+      <div class="form-group">
+        <label for="name">Nome</label>
+        <input type="text" id="name" name="name" placeholder="Digite o nome">
+      </div>
 
-        <div class="form-group">
-          <label for="productDesc">Descrição</label>
-          <textarea id="productDesc" rows="3" placeholder="Descrição do produto"></textarea>
-        </div>
+      <div class="form-group">
+        <label for="description">Descrição</label>
+        <textarea id="description" name="description" rows="3" placeholder="Descrição do produto"></textarea>
+      </div>
 
-        <div class="form-group">
-          <label for="productType">Tipo</label>
-          <select id="productType">
-            <option value="estofados">Estofados</option>
-            <option value="colchoes">Colchões</option>
-            <option value="outros">Outros</option>
-          </select>
-        </div>
+      <div class="form-group">
+        <label for="type">Tipo</label>
+        <select id="type" name="type">
+          <option value="estofados">Estofados</option>
+          <option value="colchoes">Colchões</option>
+          <option value="outros">Outros</option>
+        </select>
+      </div>
 
-        <div class="form-group">
-          <label for="productPrice">Preço</label>
-          <input type="number" id="productPrice" placeholder="Ex: 99.90">
-        </div>
+      <div class="form-group">
+        <label for="price">Preço</label>
+        <input type="number" id="price" name="price" placeholder="Ex: 99.90" step="0.01">
+      </div>
 
-        <div class="form-group checkbox">
-          <label>
-            <input type="checkbox" id="productFeatured">
-            Destaque
-          </label>
-        </div>
+      <div class="form-group checkbox">
+        <label>
+          <input type="checkbox" id="isStar" name="isStar" value="1">
+          Destaque
+        </label>
+      </div>
 
         <button type="submit">Cadastrar Produto</button>
-      </form>
+    </form>
 
       <h2>Produtos cadastrados</h2>
 
