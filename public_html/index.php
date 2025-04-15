@@ -18,11 +18,20 @@ use Vosouza\Sonomais\controller\{
     DashViewController
 };
 
+
+use Vosouza\Sonomais\view\home\{
+    HomeView,
+};
+
 $dataSource = new SQLiteDataSource();
 
 try{
     if (!array_key_exists('PATH_INFO', $_SERVER) || $_SERVER['PATH_INFO'] === '/') {
-            $controller = new HomeViewController();
+        
+        $repo = new ProductRepository($dataSource);
+        $view = new HomeView();
+        $controller = new HomeViewController($view, $repo);
+        
     }else if(!array_key_exists('PATH_INFO', $_SERVER) || $_SERVER['PATH_INFO'] === '/dash'){
         $repo = new ProductRepository($dataSource);
         $controller = new DashViewController($repo);
@@ -33,5 +42,4 @@ try{
     var_dump(value: $e->getMessage());
 }
 
-$controller->setHead();
 $controller->processaRequisicao();

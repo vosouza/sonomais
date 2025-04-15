@@ -4,26 +4,22 @@ namespace Vosouza\Sonomais\view\home;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+use Vosouza\Sonomais\view\ViewInterface;
 
-class HomeView
+class HomeView implements ViewInterface
 {
     private Environment $twig;
 
     public function __construct()
     {
-        $loader = new FilesystemLoader('templates'); // Caminho para seus templates
+        $loader = new FilesystemLoader('../src/view/home'); // Caminho para seus templates
         $this->twig = new Environment($loader);
     }
 
-    // public function exibirDetalhes(array $produto): void
-    // {
-    //     echo $this->twig->render('home.html', ['produto' => $produto]);
-    // }
-
-    public function show(array $product): void
+    public function show(array $data = []): void
     {
-        echo $this->twig->render('home.html', ['produtos' => $product]);
+        $product = [];
+        echo $this->twig->render('home.html.twig', ['products' => $data]);
     }
 
-    // Outros métodos de exibição...
 }

@@ -86,7 +86,9 @@ class ProductRepository {
             $stmt = $this->pdo->prepare("SELECT * FROM produtos LIMIT :limit");
             $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_CLASS, Product::class);
+            return $stmt->fetchAll(PDO::FETCH_FUNC, function ($id, $name, $description, $price, $category, $image_url, $isStar) {
+                return new Product($name, $description, $price, $category, $image_url, $isStar);
+            });
         } catch (PDOException $e) {
             error_log("Erro ao buscar produtos: " . $e->getMessage());
             return [];
