@@ -20,7 +20,7 @@ class DashViewController implements Controller{
         $this->productRepository = $repository;
         $this->view = $view;
 
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if($this->isPostCreateProduct()){
             $product = Product::fromPost();
 
             if ($product) {
@@ -28,6 +28,7 @@ class DashViewController implements Controller{
             } else {
                 echo "Erro ao processar o formulário.";
             }
+
         }
     }
 
@@ -35,5 +36,10 @@ class DashViewController implements Controller{
         $products = $this->productRepository->findAll();
         var_dump($products);
         $this->view->show(["products"=> $products]);
+    }
+
+    
+    public function isPostCreateProduct(): bool {
+        return $_SERVER['REQUEST_METHOD'] !== 'POST' || $_SERVER['REQUEST_URI'] !== '/dash';
     }
 }

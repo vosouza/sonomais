@@ -26,12 +26,9 @@ class Product {
         $this->isStar = $isStar;
         $this->image = $image;
     }
-
+    
     public static function fromPost(): ?Product {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || $_SERVER['REQUEST_URI'] !== '/dash') {
-            echo "Não é um POST para /dash.";
-            return null; // Não é um POST para /dash
-        }
+
         var_dump($_POST);
         // Validação básica dos dados do formulário
         if (
@@ -39,8 +36,7 @@ class Product {
             !isset($_POST['description']) ||
             !isset($_POST['price']) ||
             !isset($_POST['type']) ||
-            !isset($_FILES['image']) ||
-            !isset($_POST['isStar'])
+            !isset($_FILES['image'])
         ) {
             echo 'Dados incompletos';
             return null; // Dados incompletos
@@ -51,7 +47,12 @@ class Product {
         $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
         $price = filter_input(INPUT_POST, 'price', FILTER_VALIDATE_FLOAT);
         $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
-        $isStar = filter_var($_POST['isStar'], FILTER_VALIDATE_BOOLEAN);
+
+        if(!isset($_POST['isStar'])){
+            $isStar = false;
+        }else{
+            $isStar = filter_var($_POST['isStar'], FILTER_VALIDATE_BOOLEAN);
+        }
 
         $imagePath = self::uploadImage($_FILES['image'], $name);
         if ($imagePath === null) {

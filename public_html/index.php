@@ -58,7 +58,11 @@ try{
         $view = new LoginView();
         $controller = new LoginViewController($view, $repo);
 
-    }else {
+    }else if($pathInfo === '/logout'){
+
+        SessionRegistry::setLogginIn(false);
+        header('location: /');
+    } else {
         // Lógica para rota não encontrada (ex: definir um controlador de erro 404)
         header("HTTP/1.0 404 Not Found");
         echo "Página não encontrada.";
