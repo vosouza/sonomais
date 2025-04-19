@@ -19,7 +19,7 @@ class ProductRepository {
     private function createTable(): void {
         try {
             $this->pdo->exec("CREATE TABLE IF NOT EXISTS produtos (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id INTEGER PRIMARY KEY AUTO_INCREMENT,
                 name TEXT NOT NULL,
                 description TEXT NOT NULL,
                 price REAL NOT NULL,
