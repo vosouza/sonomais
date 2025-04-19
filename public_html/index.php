@@ -44,10 +44,10 @@ try{
     }else if($pathInfo === '/dash'){
 
         if(SessionRegistry::isLoggedIn() == false){
-            header('Location: /login');
+            header('Location: /login', true, 303);
             exit();
         }
-        
+            
         $repo = new ProductRepository(source: $dataSource);
         $view = new DashboardView();
         $controller = new DashViewController(view: $view, repository: $repo);
@@ -61,7 +61,7 @@ try{
     }else if($pathInfo === '/logout'){
 
         SessionRegistry::setLogginIn(false);
-        header('location: /');
+        header('location: /', true, 303);
     } else {
         // Lógica para rota não encontrada (ex: definir um controlador de erro 404)
         header("HTTP/1.0 404 Not Found");

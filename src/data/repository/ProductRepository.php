@@ -87,7 +87,7 @@ class ProductRepository {
             $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_FUNC, function ($id, $name, $description, $price, $category, $image_url, $isStar) {
-                return new Product($name, $description, $price, $category, $image_url, $isStar);
+                return new Product($id, $name, $description, $price, $category, $image_url, $isStar);
             });
         } catch (PDOException $e) {
             error_log("Erro ao buscar produtos: " . $e->getMessage());
@@ -95,4 +95,16 @@ class ProductRepository {
         }
     }
 
+    public function getById(int $id): ?Product {
+        try {
+            $stmt = $this->pdo->prepare("SELECT * FROM produtos WHERE id = :id");
+            $stmt->bindValue(':id', $$id);
+            $stmt->execute();
+            $produc =  $stmt->fetch(PDO::FETCH_ASSOC);
+            return new Product($id, $produc['name'],  $produc['description'],  $produc['price'],  $produc['type'],  $produc['image'],  $produc['isStar']);
+        } catch (PDOException $e) {
+            error_log("Erro ao buscar produtos: " . $e->getMessage());
+            return null;
+        }
+    }
 }

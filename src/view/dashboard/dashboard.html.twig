@@ -1,87 +1,146 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard - Produtos</title>
-  <link rel="stylesheet" href="../css/dash.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Produtos</title>
+    <link rel="stylesheet" href="../css/dash.css" />
+    <style>
+        .product-item {
+            display: flex;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+            align-items: center;
+        }
+
+        .product-item img {
+            max-width: 100px;
+            height: auto;
+            margin-right: 15px;
+        }
+
+        .product-details {
+            flex-grow: 1;
+        }
+
+        .delete-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .delete-button:hover {
+            background-color: #d32f2f;
+        }
+        .edit-button {
+            background-color: #4CAF50; /* Verde */
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: 5px; /* Espaço entre os botões */
+        }
+
+        .edit-button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-  <div class="dashboard-container">
-    <aside class="sidebar">
-      <h2>Sono+</h2>
-      <ul>
-        <li><a href="#">Produtos</a></li>
-        <li><a href="/logout">Sair</a></li>
-      </ul>
-    </aside>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <h2>Sono+</h2>
+            <ul>
+                <li><a href="#">Produtos</a></li>
+                <li><a href="/logout">Sair</a></li>
+            </ul>
+        </aside>
 
-    <main class="main-content">
-      <h1>Cadastro de Produto</h1>
-      
-    <form class="product-form" action="/dash" method="post" enctype="multipart/form-data">
-      <div class="form-group">
-        <label for="image">Imagem do produto</label>
-        <input type="file" id="image" name="image" accept="image/*">
-      </div>
+        <main class="main-content">
+            <h1>Cadastro de Produto</h1>
 
-      <div class="form-group">
-        <label for="name">Nome</label>
-        <input type="text" id="name" name="name" placeholder="Digite o nome">
-      </div>
+            <form class="product-form" action="/dash" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="image">Imagem do produto</label>
+                    <input type="file" id="image" name="image" accept="image/*">
+                </div>
 
-      <div class="form-group">
-        <label for="description">Descrição</label>
-        <textarea id="description" name="description" rows="3" placeholder="Descrição do produto"></textarea>
-      </div>
+                <div class="form-group">
+                    <label for="name">Nome</label>
+                    <input type="text" id="name" name="name" placeholder="Digite o nome">
+                </div>
 
-      <div class="form-group">
-        <label for="type">Tipo</label>
-        <select id="type" name="type">
-          <option value="estofados">Estofados</option>
-          <option value="colchoes">Colchões</option>
-          <option value="outros">Outros</option>
-        </select>
-      </div>
+                <div class="form-group">
+                    <label for="description">Descrição</label>
+                    <textarea id="description" name="description" rows="3" placeholder="Descrição do produto"></textarea>
+                </div>
 
-      <div class="form-group">
-        <label for="price">Preço</label>
-        <input type="number" id="price" name="price" placeholder="Ex: 99.90" step="0.01">
-      </div>
+                <div class="form-group">
+                    <label for="type">Tipo</label>
+                    <select id="type" name="type">
+                        <option value="estofados">Estofados</option>
+                        <option value="colchoes">Colchões</option>
+                        <option value="outros">Outros</option>
+                    </select>
+                </div>
 
-      <div class="form-group checkbox">
-        <label>
-          <input type="checkbox" id="isStar" name="isStar" value="1">
-          Destaque
-        </label>
-      </div>
+                <div class="form-group">
+                    <label for="price">Preço</label>
+                    <input type="number" id="price" name="price" placeholder="Ex: 99.90" step="0.01">
+                </div>
 
-        <button type="submit">Cadastrar Produto</button>
-    </form>
+                <div class="form-group checkbox">
+                    <label>
+                        <input type="checkbox" id="isStar" name="isStar" value="1">
+                        Destaque
+                    </label>
+                </div>
 
-      <h2>Produtos cadastrados</h2>
+                <button type="submit">Cadastrar Produto</button>
+            </form>
 
-      <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Pesquisar produto por nome...">
-      </div>
+            <h2>Produtos cadastrados</h2>
 
-      <div class="product-list">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Pesquisar produto por nome...">
+            </div>
 
-        {% for product in products %}
-        <div class="product-item">
-          <img src={{product.image}} alt="Produto">
-          <div>
-            <h3>{{product.name}}</h3>
-            <p>{{product.description}}</p>
-            <p><strong>Tipo:</strong> {{product.type}}</p>
-            <p><strong>Preço:</strong> {{product.price}}</p>
-            <p><strong>Destaque:</strong> {{product.isStar}}</p>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </main>
-  </div>
+            <div class="product-list">
+
+                {% for product in products %}
+                <div class="product-item">
+                    <img src={{product.image}} alt="Produto">
+                    <div class="product-details">
+                        <h3>{{product.name}}</h3>
+                        <p>{{product.description}}</p>
+                        <p><strong>Tipo:</strong> {{product.type}}</p>
+                        <p><strong>Preço:</strong> {{product.price}}</p>
+                        <p><strong>Destaque:</strong> {{product.isStar}}</p>
+                    </div>
+                    <form action="/dash?prudctId{{product.id}}" method="get">
+                        <button type="submit" class="edit-button">Editar</button>
+                    </form>
+                    <form action="/dash" method="post">
+                        <input type="hidden" name="deleteId" value={{product.id}}>
+                        <button type="submit" class="delete-button">Excluir</button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        </main>
+    </div>
 </body>
 </html>

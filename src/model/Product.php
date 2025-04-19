@@ -4,6 +4,7 @@ namespace Vosouza\Sonomais\model;
 
 class Product {
 
+    public int $id;
     public string $name;
     public string $description;
     public float $price;
@@ -12,6 +13,7 @@ class Product {
     public bool $isStar;
 
     public function __construct(
+        int $id,
         string $name,
         string $description,
         float $price,
@@ -19,6 +21,7 @@ class Product {
         string $image,
         bool $isStar
     ) {
+        $this->id = $id;
         $this->name = $name;
         $this->description = $description;
         $this->price = $price;
@@ -26,7 +29,7 @@ class Product {
         $this->isStar = $isStar;
         $this->image = $image;
     }
-    
+
     public static function fromPost(): ?Product {
 
         var_dump($_POST);
@@ -67,6 +70,7 @@ class Product {
         }
 
         return new Product(
+             0,
             $name,
             $description,
             $price,

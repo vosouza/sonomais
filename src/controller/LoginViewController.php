@@ -37,7 +37,7 @@ class LoginViewController implements Controller{
                 // Login bem-sucedido
                 SessionRegistry::setLogginIn(true);
                 SessionRegistry::setUserId($loggedInUser->getId());
-                header("Location: /dash");
+                header("Location: /dash", true, 303);
                 exit;
             } else {
                 // Credenciais inválidas
