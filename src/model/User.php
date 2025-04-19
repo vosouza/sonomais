@@ -6,12 +6,12 @@ namespace Vosouza\Sonomais\model;
 
 class User
 {
-    private ?string $id;
+    private int $id;
     private string $name;
     private string $email;
     private string $password;
 
-    public function __construct(?string $id, string $name, string $email, string $password)
+    public function __construct(int $id, string $name, string $email, string $password)
     {
         $this->id = $id;
         $this->name = $name;
@@ -19,7 +19,7 @@ class User
         $this->password = $password;
     }
 
-    public function getId(): ?string
+    public function getId(): int
     {
         return $this->id;
     }
@@ -62,7 +62,7 @@ class User
             $password = $_POST['password'] ?? '';
 
             if (!empty($email) && !empty($password)) {
-                return new self(null, '', $email, $password);
+                return new self(0, '', $email, $password);
             }
         }
         return null;

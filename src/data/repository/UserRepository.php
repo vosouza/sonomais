@@ -23,10 +23,11 @@ class UserRepository
     private function createTableIfNotExists(): void
     {
         $sql = "CREATE TABLE IF NOT EXISTS {$this->tableName} (
-            id TEXT PRIMARY KEY,
+            id INT AUTO_INCREMENT PRIMARY KEY,
             name TEXT NOT NULL,
-            email TEXT NOT NULL UNIQUE,
-            password TEXT NOT NULL
+            email TEXT NOT NULL,
+            password TEXT NOT NULL,
+            INDEX (id_text) -- Adicionar um índice para a coluna id_text para buscas rápidas
         )";
         $this->pdo->exec($sql);
     }
@@ -86,7 +87,7 @@ class UserRepository
     {
         try{
             if($email == 'cpudvini@gmail.com' && $password == '1234'){
-                return new User('sadasdas','Vinicius', 'cpudvini@gmail.com',   '1234');
+                return new User(0,'Vinicius', 'cpudvini@gmail.com',   '1234');
             }
             $user = $this->findByEmail(email: $email);
 
