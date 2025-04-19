@@ -21,47 +21,58 @@ class DashViewController implements Controller{
     public function __construct(ViewInterface $view, ProductRepository $repository){
         $this->productRepository = $repository;
         $this->view = $view;
+    }
 
-        if($this->isDeleteProduct()){
-            echo 'zasdasd';
-            $deleteID = filter_input(INPUT_POST, "deleteId", FILTER_VALIDATE_INT);
+    public function createProduct(){
+        if($this->isPostCreateProduct()){
 
-            if($this->productRepository->delete($deleteID)){
-                echo "Produto excluido";
-            }else{
-                echo "erro ao excluir produto";
-            }
-            // header('Location: /dash', true, 303);
-
-        }else if($this->isPostCreateProduct()){
             $product = Product::fromPost();
+            var_dump($product);
 
             if ($product) {
                 $this->productRepository->insert(product: $product);
             } else {
                 echo "Erro ao processar o formulário.";
             }
-            // header('Location: /dash', true, 303);
         }
-        
-        // else if($this->isGetEditProduct()){
-        //     $productId = filter_input(INPUT_GET, "productId", FILTER_VALIDATE_INT);
-        //     $product = $this->productRepository->getById($productId);
-        //     if ($product != null) {
-        //         $editProduct = $product;
-        //     }else{
-        //         echo "produto nao encontrado";
-        //     }
-        // }
+        header('Location: /dash', true, 303);
+    }
+
+    public function editProduct(){
+        $productId = filter_input(INPUT_GET, "productId", FILTER_VALIDATE_INT);
+        $product = $this->productRepository->getById($productId);
+        if ($product != null) {
+            $this->editProduct = $product;
+        }else{
+            echo "produto nao encontrado";
+        }
+        header('Location: /dash', true, 303);
+    }
+
+    public function deleteProduct(){
+        if(!($_SERVER['REQUEST_METHOD'] === 'POST') && !isset($_POST['deleteId'])){
+            echo "Erro request method";
+            exit();
+        }
+
+        $deleteID = filter_input(INPUT_POST, "deleteId", FILTER_VALIDATE_INT);
+
+        if($this->productRepository->delete($deleteID)){
+            echo "Produto excluido";
+        }else{
+            echo "erro ao excluir produto";
+        }
+        header('Location: /dash', true, 303);
     }
 
     public function processaRequisicao(): void{
         $products = $this->productRepository->findAll();
+        var_dump($products);
         $this->view->show(["products"=> $products]);
     }
 
     public function isPostCreateProduct(): bool {
-        return $_SERVER['REQUEST_METHOD'] !== 'POST';
+        return $_SERVER['REQUEST_METHOD'] === 'POST';
     }
 
     public function isDeleteProduct(): bool {

@@ -72,7 +72,7 @@
         <main class="main-content">
             <h1>Cadastro de Produto</h1>
 
-            <form class="product-form" action="/dash" method="post" enctype="multipart/form-data">
+            <form class="product-form" action="/dash/create" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="image">Imagem do produto</label>
                     <input type="file" id="image" name="image" accept="image/*">
@@ -133,7 +133,7 @@
                     <form action="/dash?prudctId{{product.id}}" method="get">
                         <button type="submit" class="edit-button">Editar</button>
                     </form>
-                    <form action="/dash" method="post">
+                    <form action="/dash/delete" method="post">
                         <input type="hidden" name="deleteId" value={{product.id}}>
                         <button type="submit" class="delete-button">Excluir</button>
                     </form>

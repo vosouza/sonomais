@@ -52,6 +52,42 @@ try{
         $view = new DashboardView();
         $controller = new DashViewController(view: $view, repository: $repo);
         
+    }else if($pathInfo === '/dash/create'){
+
+        if(SessionRegistry::isLoggedIn() == false){
+            header('Location: /login', true, 303);
+            exit();
+        }
+            
+        $repo = new ProductRepository(source: $dataSource);
+        $view = new DashboardView();
+        $controller = new DashViewController(view: $view, repository: $repo);
+        $controller->createProduct();
+        
+    }else if($pathInfo === '/dash/delete'){
+
+        if(SessionRegistry::isLoggedIn() == false){
+            header('Location: /login', true, 303);
+            exit();
+        }
+            
+        $repo = new ProductRepository(source: $dataSource);
+        $view = new DashboardView();
+        $controller = new DashViewController(view: $view, repository: $repo);
+        $controller->deleteProduct();
+        
+    }else if($pathInfo === '/dash/editproduct'){
+
+        if(SessionRegistry::isLoggedIn() == false){
+            header('Location: /login', true, 303);
+            exit();
+        }
+            
+        $repo = new ProductRepository(source: $dataSource);
+        $view = new DashboardView();
+        $controller = new DashViewController(view: $view, repository: $repo);
+        $controller->editProduct();
+        
     }else if($pathInfo === '/login'){
 
         $repo = new UserRepository( $dataSource);
