@@ -26,7 +26,8 @@ use Vosouza\Sonomais\controller\{
 
 SessionRegistry::initialize();
 
-$dataSource = new SQLiteDataSource();
+// $dataSource = new SQLiteDataSource();
+$dataSource = new DataSource();
 
 $pathInfo = $_SERVER['PATH_INFO'] ?? '/';
 $parte_a_remover = '/public_html';
