@@ -27,7 +27,7 @@ class UserRepository
             name TEXT NOT NULL,
             email TEXT NOT NULL,
             password TEXT NOT NULL,
-            INDEX (id_text) -- Adicionar um índice para a coluna id_text para buscas rápidas
+            INDEX (id) -- Adicionar um índice para a coluna id_text para buscas rápidas
         )";
         $this->pdo->exec($sql);
     }
