@@ -14,7 +14,8 @@ use Vosouza\Sonomais\view\home\HomeView;
 use Vosouza\Sonomais\SessionRegistry;
 use Vosouza\Sonomais\data\{
     DataSource,
-    SQLiteDataSource
+    SQLiteDataSource,
+    DataSourceTest,
 };
 
 use Vosouza\Sonomais\controller\{
@@ -26,8 +27,12 @@ use Vosouza\Sonomais\controller\{
 
 SessionRegistry::initialize();
 
-// $dataSource = new SQLiteDataSource();
-$dataSource = new DataSource();
+$dataSource;
+if ($_SERVER['SERVER_NAME'] === 'localhost'){
+    $dataSource = new DataSourceTest();
+}else{
+    $dataSource = new DataSource();
+}
 
 $pathInfo = $_SERVER['PATH_INFO'] ?? '/';
 $parte_a_remover = '/public_html';
