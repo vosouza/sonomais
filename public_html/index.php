@@ -11,7 +11,10 @@ use Vosouza\Sonomais\data\repository\{
 use Vosouza\Sonomais\view\login\LoginView;
 use Vosouza\Sonomais\view\dashboard\DashboardView;
 use Vosouza\Sonomais\view\home\HomeView;
-use Vosouza\Sonomais\SessionRegistry;
+use Vosouza\Sonomais\{
+    SessionRegistry,
+    SonoLogger,
+};
 use Vosouza\Sonomais\data\{
     DataSource,
     SQLiteDataSource,
@@ -26,7 +29,9 @@ use Vosouza\Sonomais\controller\{
 
 
 SessionRegistry::initialize();
+SonoLogger::initialize();
 
+SonoLogger::log('teste hoje');
 $dataSource;
 if ($_SERVER['SERVER_NAME'] === 'localhost'){
     $dataSource = new DataSourceTest();
