@@ -57,7 +57,6 @@ class User
     public static function fromLoginPost(): ?User
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            echo 'aqui';
             $email = $_POST['email'] ?? '';
             $password = $_POST['password'] ?? '';
 

@@ -1,6 +1,9 @@
 <?php
 
 namespace Vosouza\Sonomais\model;
+use Vosouza\Sonomais\{
+    SonoLogger,
+};
 
 class Product {
 
@@ -31,54 +34,90 @@ class Product {
     }
 
     public static function fromPost(): ?Product {
-
         var_dump($_POST);
-        // Validação básica dos dados do formulário
+        var_dump($_FILES); // Importante para entender a estrutura de $_FILES
+
+        // Validação básica dos dados do formulário (campos de texto)
         if (
             !isset($_POST['name']) ||
             !isset($_POST['description']) ||
             !isset($_POST['price']) ||
             !isset($_POST['type']) ||
-            !isset($_FILES['image'])
+            !isset($_FILES['image']) || !is_array($_FILES['image']['name']) // Verifica se 'image' é um array
         ) {
-            echo 'Dados incompletos';
+            SonoLogger::log( 'Dados incompletos');
             return null; // Dados incompletos
         }
 
-        // Sanitização e conversão dos dados
+        // Sanitização e conversão dos dados de texto
         $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
         $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
         $price = filter_input(INPUT_POST, 'price', FILTER_VALIDATE_FLOAT);
         $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
 
-        if(!isset($_POST['isStar'])){
-            $isStar = false;
-        }else{
-            $isStar = filter_var($_POST['isStar'], FILTER_VALIDATE_BOOLEAN);
+        $isStar = isset($_POST['isStar']) ? filter_var($_POST['isStar'], FILTER_VALIDATE_BOOLEAN) : false;
+
+        $imagePaths = self::uploadImages($_FILES['image'], $name);
+        if ($imagePaths === null || empty($imagePaths)) {
+            SonoLogger::log( 'Erro no upload de uma ou mais imagens');
+            return null; // Falha no upload de alguma imagem
         }
 
-        $imagePath = self::uploadImage($_FILES['image'], $name);
-        if ($imagePath === null) {
-            echo 'erro no upload da imagem';
-            return null; // Falha no upload da imagem
-        }
+        $allImagePaths = implode(';', $imagePaths);
 
         // Validação adicional (opcional)
-        if ($name === null || $description === null || $price === false || $type === null || $imagePath === null || $isStar === null) {
-            echo 'Falha na validação/conversão';
+        if ($name === null || $description === null || $price === false || $type === null || empty($allImagePaths) || $isStar === null) {
+            SonoLogger::log( 'Falha na validação/conversão');
             return null; // Falha na validação/conversão
         }
 
         return new Product(
-             0,
+            0,
             $name,
             $description,
             $price,
             $type,
-            $imagePath,
+            $allImagePaths,
             $isStar
         );
     }
+
+    private static function uploadImages(array $imageFiles, string $productName): ?array {
+        $uploadedPaths = [];
+        $uploadDir = 'uploads/'; // Defina seu diretório de uploads
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+
+        $numFiles = count($imageFiles['name']);
+        for ($i = 0; $i < $numFiles; $i++) {
+            if ($imageFiles['error'][$i] === UPLOAD_ERR_OK) {
+                $tmpFilePath = $imageFiles['tmp_name'][$i];
+                $originalName = $imageFiles['name'][$i];
+                $tmpName = $imageFiles['name'][$i];
+                $uniqueName = self::generateUniqueImageName($originalName, $productName);
+                $extension = pathinfo($originalName, PATHINFO_EXTENSION);
+                $newFileName = uniqid('product_' . preg_replace('/\s+/', '_', strtolower($productName)) . '_') . '.' . $extension;
+                $destination = $uploadDir . $newFileName;
+
+                if (move_uploaded_file($tmpFilePath, $destination)) {
+                    $uploadedPaths[] = $destination;
+                } else {
+                    // Erro ao mover o arquivo
+                    SonoLogger::log( 'Erro ao mover o arquivo: ' . $originalName . '<br>0');
+                    return null; // Ou você pode optar por continuar e logar os erros
+                }
+            } elseif ($imageFiles['error'][$i] !== UPLOAD_ERR_NO_FILE) {
+                // Outro erro de upload (além de nenhum arquivo enviado)
+                SonoLogger::log( 'Erro no upload do arquivo ' . $imageFiles['name'][$i] . ': ' . $imageFiles['error'][$i] . '<br>');
+                return null; // Ou você pode optar por continuar e logar os erros
+            }
+            // Se UPLOAD_ERR_NO_FILE, o usuário não enviou este arquivo, então ignoramos.
+        }
+
+        return $uploadedPaths;
+    }
+
 
     private static function uploadImage(array $imageFile, string $productName): ?string
     {
@@ -93,11 +132,11 @@ class Product {
             if (move_uploaded_file($tmpName, $destinationPath)) {
                 return $relativeImagePath;
             } else {
-                echo 'Erro ao mover o arquivo para o destino.';
+                SonoLogger::log( 'Erro ao mover o arquivo para o destino.');
                 return null;
             }
         } else {
-            echo 'Erro no upload da imagem: ' . $imageFile['error'];
+            SonoLogger::log( 'Erro no upload da imagem: ' . $imageFile['error']);
             return null;
         }
     }

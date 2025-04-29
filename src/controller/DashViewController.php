@@ -9,6 +9,9 @@ use Vosouza\Sonomais\view\ViewInterface;
 use Vosouza\Sonomais\model\{
     Product,
 };
+use Vosouza\Sonomais\{
+    SonoLogger,
+};
 
 class DashViewController implements Controller{
 
@@ -32,7 +35,7 @@ class DashViewController implements Controller{
             if ($product) {
                 $this->productRepository->insert(product: $product);
             } else {
-                echo "Erro ao processar o formulário.";
+                SonoLogger::log( "Erro ao processar o formulário.");
             }
         }
         header('Location: /dash', true, 303);
@@ -44,23 +47,23 @@ class DashViewController implements Controller{
         if ($product != null) {
             $this->editProduct = $product;
         }else{
-            echo "produto nao encontrado";
+            SonoLogger::log( "produto nao encontrado");
         }
         header('Location: /dash', true, 303);
     }
 
     public function deleteProduct(){
         if(!($_SERVER['REQUEST_METHOD'] === 'POST') && !isset($_POST['deleteId'])){
-            echo "Erro request method";
+            SonoLogger::log( "Erro request method");
             exit();
         }
 
         $deleteID = filter_input(INPUT_POST, "deleteId", FILTER_VALIDATE_INT);
 
         if($this->productRepository->delete($deleteID)){
-            echo "Produto excluido";
+            SonoLogger::log( "Produto excluido");
         }else{
-            echo "erro ao excluir produto";
+            SonoLogger::log( "erro ao excluir produto");
         }
         header('Location: /dash', true, 303);
     }

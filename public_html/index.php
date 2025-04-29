@@ -31,7 +31,6 @@ use Vosouza\Sonomais\controller\{
 SessionRegistry::initialize();
 SonoLogger::initialize();
 
-SonoLogger::log('teste hoje');
 $dataSource;
 if ($_SERVER['SERVER_NAME'] === 'localhost'){
     $dataSource = new DataSourceTest();

@@ -5,6 +5,9 @@ namespace Vosouza\Sonomais\data;
 
 use PDO;
 use PDOException;
+use Vosouza\Sonomais\{
+    SonoLogger,
+};
 
 class DataSourceTest implements DataSourceInterface{
 
@@ -24,7 +27,7 @@ class DataSourceTest implements DataSourceInterface{
             
             $this->pdoConection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            echo "Erro na conexão: " . $e->getMessage();
+            SonoLogger::log( "Erro na conexão: " . $e->getMessage());
         }
     }
 

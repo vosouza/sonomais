@@ -8,6 +8,9 @@ use Vosouza\Sonomais\data\repository\UserRepository;
 use Vosouza\Sonomais\SessionRegistry;
 use Vosouza\Sonomais\view\ViewInterface;
 use Vosouza\Sonomais\model\User;
+use Vosouza\Sonomais\{
+    SonoLogger,
+};
 
 class LoginViewController implements Controller{
 
@@ -26,13 +29,11 @@ class LoginViewController implements Controller{
     public function processLogin(): void
     {
         if ($userLogin = User::fromLoginPost()) {
-            echo 'aqui';
             // $userLogin agora é um objeto User com email e senha preenchidos
             $loggedInUser = $this->userRepository->verifyCredentials(
                 $userLogin->getEmail(),
                 $userLogin->getPassword()
             );
-            echo 'aqui';
             if ($loggedInUser) {
                 // Login bem-sucedido
                 SessionRegistry::setLogginIn(true);
