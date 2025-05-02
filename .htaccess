@@ -1,7 +1,13 @@
 RewriteEngine On
 
-# Negar acesso a todos os arquivos e pastas por padrão
-Options -Indexes
+# Redirecionar todas as requisições que não são arquivos ou diretórios existentes
+# e não estão nas pastas permitidas para o index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/(images|uploads|scripts|css)/ [NC]
+RewriteRule ^(.*)$ index.php/$1 [L]
+
+# Negar acesso a todos os arquivos por padrão (para segurança)
 <Files *>
     Require all denied
 </Files>
@@ -16,9 +22,5 @@ Options -Indexes
     Require all granted
 </DirectoryMatch>
 
-# Se você tiver arquivos específicos dentro dessas pastas que precisam de proteção,
-# você pode adicionar regras aqui para negar acesso a eles.
-# Exemplo: Negar acesso a arquivos .psd dentro da pasta images
-# <FilesMatch "^.*\.(psd)$">
-#     Require all denied
-# </FilesMatch>
+# Desabilitar a listagem de diretórios (opcional, mas recomendado)
+Options -Indexes
