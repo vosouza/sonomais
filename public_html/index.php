@@ -41,9 +41,13 @@ if ($_SERVER['SERVER_NAME'] === 'localhost'){
 $pathInfo = $_SERVER['PATH_INFO'] ?? '/';
 $parte_a_remover = '/public_html';
 $pathInfo = str_replace($parte_a_remover, '', $pathInfo);
-
 $controller = null;
 
+SonoLogger::log('PATH_INFO = '.$_SERVER['PATH_INFO']);
+SonoLogger::log('GET = '.$_GET['productid']);
+SonoLogger::log('_PUT = '.$_PUT['productid']);
+SonoLogger::log('_POST = '.$_POST['productid']);
+SonoLogger::log('_SERVER = '.var_export($_SERVER,true));
 try{
     if ($pathInfo === '/') {
 
@@ -87,7 +91,7 @@ try{
         $controller->deleteProduct();
         
     }else if($pathInfo === '/dash/editproduct'){
-
+        
         if(SessionRegistry::isLoggedIn() == false){
             header('Location: /login', true, 303);
             exit();

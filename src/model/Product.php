@@ -14,6 +14,7 @@ class Product {
     public string $type;
     public string $image;
     public bool $isStar;
+    public array $imageList;
 
     public function __construct(
         int $id,
@@ -22,7 +23,8 @@ class Product {
         float $price,
         string $type,
         string $image,
-        bool $isStar
+        bool $isStar,
+        array $imageList,
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -31,6 +33,7 @@ class Product {
         $this->type = $type;
         $this->isStar = $isStar;
         $this->image = $image;
+        $this->imageList = $imageList;
     }
 
     public static function fromPost(): ?Product {
@@ -78,7 +81,8 @@ class Product {
             $price,
             $type,
             $allImagePaths,
-            $isStar
+            $isStar,
+            [],
         );
     }
 

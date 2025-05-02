@@ -86,9 +86,10 @@ class UserRepository
     public function verifyCredentials(string $email, string $password): ?User
     {
         try{
-            if($email == 'cpudvini@gmail.com' && $password == '1234'){
-                return new User(0,'Vinicius', 'cpudvini@gmail.com',   '1234');
-            }
+            // if($email == 'cpudvini@gmail.com' && $password == '1234'){
+            //     return new User(0,'Vinicius', 'cpudvini@gmail.com',   '1234');
+            // 
+            // }
             $user = $this->findByEmail(email: $email);
 
             if ($user && password_verify(password: $password, hash: $user->getPassword())) {

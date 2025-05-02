@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Vosouza\Sonomais\controller;
 
 use Vosouza\Sonomais\data\repository\ProductRepository;
-use Vosouza\Sonomais\view\ViewInterface;
+use Vosouza\Sonomais\view\dashboard\DashboardView;
 use Vosouza\Sonomais\model\{
     Product,
 };
@@ -16,12 +16,12 @@ use Vosouza\Sonomais\{
 class DashViewController implements Controller{
 
     
-    private ViewInterface $view;
+    private DashboardView $view;
     private $productRepository;
 
     private ?Product $editProduct = null;
 
-    public function __construct(ViewInterface $view, ProductRepository $repository){
+    public function __construct(DashboardView $view, ProductRepository $repository){
         $this->productRepository = $repository;
         $this->view = $view;
     }
@@ -42,14 +42,15 @@ class DashViewController implements Controller{
     }
 
     public function editProduct(){
-        $productId = filter_input(INPUT_GET, "productId", FILTER_VALIDATE_INT);
+        $this->view->renderEdit();
+        $productId = filter_input(INPUT_GET, "productid", FILTER_VALIDATE_INT);
+        SonoLogger::log(message: 'EDITPRODUCT GET');
         $product = $this->productRepository->getById($productId);
         if ($product != null) {
             $this->editProduct = $product;
         }else{
             SonoLogger::log( "produto nao encontrado");
         }
-        header('Location: /dash', true, 303);
     }
 
     public function deleteProduct(){
@@ -70,7 +71,7 @@ class DashViewController implements Controller{
 
     public function processaRequisicao(): void{
         $products = $this->productRepository->findAll();
-        var_dump($products);
+        SonoLogger::log(var_export($products, true));
         $this->view->show(["products"=> $products]);
     }
 

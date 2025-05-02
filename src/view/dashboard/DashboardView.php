@@ -9,17 +9,23 @@ use Vosouza\Sonomais\view\ViewInterface;
 class DashboardView implements ViewInterface
 {
     private Environment $twig;
+    private String $viewFile;
 
     public function __construct()
     {
         $loader = new FilesystemLoader('../src/view/dashboard');
+        $this->viewFile = 'dashboard.html.twig';
         $this->twig = new Environment($loader);
+    }
+
+    public function renderEdit (): void{
+        $this->viewFile = 'edit.html.twig';
     }
 
     public function show(array $data = []): void
     {
         // $product = [];
-        echo $this->twig->render('dashboard.html.twig', $data);
+        echo $this->twig->render($this->viewFile, $data);
     }
 
 }

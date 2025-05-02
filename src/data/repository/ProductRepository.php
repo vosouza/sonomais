@@ -7,16 +7,36 @@ use PDOException;
 use Vosouza\Sonomais\data\DataSourceInterface;
 use Vosouza\Sonomais\model\Product;
 
-class ProductRepository {
+class ProductRepository
+{
 
     private PDO $pdo;
 
-    public function __construct(DataSourceInterface $source) {
+    public function __construct(DataSourceInterface $source)
+    {
         $this->pdo = $source->getConection();
         $this->createTable(); // Garante que a tabela exista
     }
 
-    private function createTable(): void {
+    private function extrairUrls(string $stringUrls): array
+    {
+        // Divide a string em um array de URLs usando o ponto e vírgula como delimitador.
+        $listaDeUrls = explode(';', $stringUrls);
+
+        // Remove espaços em branco extras de cada URL na lista.
+        $listaDeUrlsTratada = array_map('trim', $listaDeUrls);
+
+        // Filtra URLs vazias que podem ter resultado de múltiplos ponto e vírgulas.
+        $listaDeUrlsFiltrada = array_filter($listaDeUrlsTratada, function ($url) {
+            return !empty($url);
+        });
+
+        // Retorna o array de URLs filtradas.
+        return array_values($listaDeUrlsFiltrada);
+    }
+
+    private function createTable(): void
+    {
         try {
             $this->pdo->exec("CREATE TABLE IF NOT EXISTS produtos (
                 id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -33,7 +53,8 @@ class ProductRepository {
         }
     }
 
-    public function insert(Product $product): ?int {
+    public function insert(Product $product): ?int
+    {
         try {
             $stmt = $this->pdo->prepare("INSERT INTO produtos (name, description, price, type, image, isStar) VALUES (:name, :description, :price, :type, :image, :isStar)");
             $stmt->execute([
@@ -51,7 +72,8 @@ class ProductRepository {
         }
     }
 
-    public function delete(int $id): bool {
+    public function delete(int $id): bool
+    {
         try {
             $stmt = $this->pdo->prepare("DELETE FROM produtos WHERE id = :id");
             $stmt->execute([':id' => $id]);
@@ -62,7 +84,8 @@ class ProductRepository {
         }
     }
 
-    public function update(Product $product, int $id): bool {
+    public function update(Product $product, int $id): bool
+    {
         try {
             $stmt = $this->pdo->prepare("UPDATE produtos SET name = :name, description = :description, price = :price, type = :type, image = :image, isStar = :isStar WHERE id = :id");
             $stmt->execute([
@@ -81,13 +104,15 @@ class ProductRepository {
         }
     }
 
-    public function findAll(int $limit = 10): array {
+    public function findAll(int $limit = 10): array
+    {
         try {
             $stmt = $this->pdo->prepare("SELECT * FROM produtos LIMIT :limit");
             $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_FUNC, function ($id, $name, $description, $price, $category, $image_url, $isStar) {
-                return new Product($id, $name, $description, $price, $category, $image_url, $isStar);
+                $urlList = $this->extrairUrls($image_url);
+                return new Product($id, $name, $description, $price, $category, $image_url, $isStar, $urlList);
             });
         } catch (PDOException $e) {
             error_log("Erro ao buscar produtos: " . $e->getMessage());
@@ -95,13 +120,15 @@ class ProductRepository {
         }
     }
 
-    public function getById(int $id): ?Product {
+    public function getById(int $id): ?Product
+    {
         try {
             $stmt = $this->pdo->prepare("SELECT * FROM produtos WHERE id = :id");
             $stmt->bindValue(':id', $$id);
             $stmt->execute();
-            $produc =  $stmt->fetch(PDO::FETCH_ASSOC);
-            return new Product($id, $produc['name'],  $produc['description'],  $produc['price'],  $produc['type'],  $produc['image'],  $produc['isStar']);
+            $produc = $stmt->fetch(PDO::FETCH_ASSOC);
+            $urlList = $this->extrairUrls($produc['image']);
+            return new Product($id, $produc['name'], $produc['description'], $produc['price'], $produc['type'], $produc['image'], $produc['isStar'], $urlList);
         } catch (PDOException $e) {
             error_log("Erro ao buscar produtos: " . $e->getMessage());
             return null;

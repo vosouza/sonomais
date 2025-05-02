@@ -1,146 +1,214 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard - Produtos</title>
-    <link rel="stylesheet" href="../css/dash.css" />
-    <style>
-        .product-item {
-            display: flex;
-            border: 1px solid #ccc;
-            margin-bottom: 10px;
-            padding: 10px;
-            align-items: center;
-        }
+ <html lang="pt-br">
+ <head>
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <title>Dashboard - Produtos</title>
+     <link rel="stylesheet" href="../css/dash.css" />
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.3/simple-lightbox.css" integrity="sha512-5gTxhbmgsOKfPP2+TeKslkMmyxF0Cmyr2YrJrfaXD/ChLHavFXGzDDG9ZiOca1P/2/5nXuujkB2BWymVKu1pPg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.3/simple-lightbox.min.js" integrity="sha512-Vtot07oogPy4e0JzAfUgyvia0fATgR1PWWNG89EeQgPXmaIhjGQIFijUVxRn0TScCMCH57Y7eJSixmYYDJkJ1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+     <script defer src="../scripts/dash.js"></script>
+     <style>
+         .product-item {
+             display: flex;
+             border: 1px solid #ccc;
+             margin-bottom: 10px;
+             padding: 10px;
+             align-items: flex-start; /* Alinha os itens no topo */
+             flex-direction: column; /* Organiza os elementos em coluna */
+         }
 
-        .product-item img {
-            max-width: 100px;
-            height: auto;
-            margin-right: 15px;
-        }
+         .product-image-details {
+             display: flex; /* Alinha a imagem e os detalhes na mesma linha */
+             align-items: flex-start; /* Alinha imagem e detalhes no topo */
+             margin-bottom: 10px; /* Espaço abaixo da linha de imagem e detalhes */
+         }
 
-        .product-details {
+         .product-image-details > img {
+             max-width: 100px;
+             height: auto;
+             margin-right: 15px;
+         }
+
+         .product-details {
+            /* display: flex; Remova esta linha */
             flex-grow: 1;
+            align-items: center; /* Você pode querer remover isso também, dependendo do alinhamento vertical desejado */
+            margin-bottom: 10px;
         }
 
-        .delete-button {
-            background-color: #f44336;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            cursor: pointer;
-            border-radius: 4px;
+        .product-details h3 {
+            margin-right: 15px;
+            margin-bottom: 5px; /* Adicione um pouco de espaço abaixo do título */
         }
 
-        .delete-button:hover {
-            background-color: #d32f2f;
-        }
-        .edit-button {
-            background-color: #4CAF50; /* Verde */
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            cursor: pointer;
-            border-radius: 4px;
-            margin-left: 5px; /* Espaço entre os botões */
+        .product-details p {
+            margin-right: 15px;
+            margin-bottom: 5px; /* Adicione um pouco de espaço abaixo de cada parágrafo */
         }
 
-        .edit-button:hover {
-            background-color: #45a049;
+        .product-details strong {
+            margin-right: 5px;
         }
-    </style>
-</head>
-<body>
-    <div class="dashboard-container">
-        <aside class="sidebar">
-            <h2>Sono+</h2>
-            <ul>
-                <li><a href="#">Produtos</a></li>
-                <li><a href="/logout">Sair</a></li>
-            </ul>
-        </aside>
 
-        <main class="main-content">
-            <h1>Cadastro de Produto</h1>
+         .product-details strong {
+             margin-right: 5px;
+         }
 
-            <form class="product-form" action="/dash/create" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="image">Imagem do produto</label>
-                    <input type="file" id="image" name="image[]" accept="image/*" multiple>
-                </div>
+         .product-buttons {
+             display: flex; /* Alinha os botões na mesma linha */
+             gap: 5px;
+             margin-bottom: 10px; /* Espaço abaixo dos botões */
+         }
 
-                <div class="form-group">
-                    <label for="name">Nome</label>
-                    <input type="text" id="name" name="name" placeholder="Digite o nome">
-                </div>
+         .delete-button {
+             background-color: #f44336;
+             color: white;
+             border: none;
+             padding: 8px 12px;
+             text-align: center;
+             text-decoration: none;
+             font-size: 14px;
+             cursor: pointer;
+             border-radius: 4px;
+         }
 
-                <div class="form-group">
-                    <label for="description">Descrição</label>
-                    <textarea id="description" name="description" rows="3" placeholder="Descrição do produto"></textarea>
-                </div>
+         .delete-button:hover {
+             background-color: #d32f2f;
+         }
+         .edit-button {
+             background-color: #4CAF50; /* Verde */
+             color: white;
+             border: none;
+             padding: 8px 12px;
+             text-align: center;
+             text-decoration: none;
+             font-size: 14px;
+             cursor: pointer;
+             border-radius: 4px;
+             margin-left: 5px;
+         }
 
-                <div class="form-group">
-                    <label for="type">Tipo</label>
-                    <select id="type" name="type">
-                        <option value="estofados">Estofados</option>
-                        <option value="colchoes">Colchões</option>
-                        <option value="outros">Outros</option>
-                    </select>
-                </div>
+         .edit-button:hover {
+             background-color: #45a049;
+         }
 
-                <div class="form-group">
-                    <label for="price">Preço</label>
-                    <input type="number" id="price" name="price" placeholder="Ex: 99.90" step="0.01">
-                </div>
+         .additional-images {
+             display: flex;
+             flex-wrap: wrap;
+             gap: 10px;
+             margin-top: 10px; /* Espaço acima das imagens adicionais */
+         }
 
-                <div class="form-group checkbox">
-                    <label>
-                        <input type="checkbox" id="isStar" name="isStar" value="1">
-                        Destaque
-                    </label>
-                </div>
+         .additional-images img {
+             max-width: 80px;
+             height: auto;
+             border: 1px solid #eee;
+             padding: 5px;
+             box-sizing: border-box;
+         }
+     </style>
+ </head>
+ <body>
+     <div class="dashboard-container">
+         <aside class="sidebar">
+             <h2>Sono+</h2>
+             <ul>
+                 <li><a href="#">Produtos</a></li>
+                 <li><a href="/logout">Sair</a></li>
+             </ul>
+         </aside>
 
-                <button type="submit">Cadastrar Produto</button>
-            </form>
+         <main class="main-content">
+             <h1>Cadastro de Produto</h1>
 
-            <h2>Produtos cadastrados</h2>
+             <form class="product-form" action="/dash/create" method="post" enctype="multipart/form-data">
+                 <div class="form-group">
+                     <label for="image">Imagem do produto</label>
+                     <input type="file" id="image" name="image[]" accept="image/*" multiple>
+                 </div>
 
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Pesquisar produto por nome...">
-            </div>
+                 <div class="form-group">
+                     <label for="name">Nome</label>
+                     <input type="text" id="name" name="name" placeholder="Digite o nome">
+                 </div>
 
-            <div class="product-list">
+                 <div class="form-group">
+                     <label for="description">Descrição</label>
+                     <textarea id="description" name="description" rows="3" placeholder="Descrição do produto"></textarea>
+                 </div>
 
-                {% for product in products %}
-                <div class="product-item">
-                    <img src={{product.image}} alt="Produto">
-                    <div class="product-details">
-                        <h3>{{product.name}}</h3>
-                        <p>{{product.description}}</p>
-                        <p><strong>Tipo:</strong> {{product.type}}</p>
-                        <p><strong>Preço:</strong> {{product.price}}</p>
-                        <p><strong>Destaque:</strong> {{product.isStar}}</p>
+                 <div class="form-group">
+                     <label for="type">Tipo</label>
+                     <select id="type" name="type">
+                         <option value="estofados">Estofados</option>
+                         <option value="colchoes">Colchões</option>
+                         <option value="outros">Outros</option>
+                     </select>
+                 </div>
+
+                 <div class="form-group">
+                     <label for="price">Preço</label>
+                     <input type="number" id="price" name="price" placeholder="Ex: 99.90" step="0.01">
+                 </div>
+
+                 <div class="form-group checkbox">
+                     <label>
+                         <input type="checkbox" id="isStar" name="isStar" value="1">
+                         Destaque
+                     </label>
+                 </div>
+
+                 <button type="submit">Cadastrar Produto</button>
+             </form>
+
+             <h2>Produtos cadastrados</h2>
+
+             <div class="search-bar">
+                 <input type="text" id="searchInput" placeholder="Pesquisar produto por nome...">
+             </div>
+
+             <div class="product-list">
+
+                 {% for product in products %}
+                    <div class="product-item">
+                        <div class="product-image-details">
+                            {% if product.imageList|length > 0 %}
+                                <a href="{{ product.imageList.0 }}" data-lightbox="{{ product.id }}">
+                                    <img src="{{ product.imageList.0 }}" alt="{{ product.name }}">
+                                </a>
+                            {% endif %}
+                            <div class="product-details">
+                                <h3>{{ product.name }}</h3>
+                                <p>{{ product.description }}</p>
+                                <p><strong>Tipo:</strong> {{ product.type }}</p>
+                                <p><strong>Preço:</strong> {{ product.price }}</p>
+                                <p><strong>Destaque:</strong> {{ product.isStar }}</p>
+                            </div>
+                        </div>
+                        <div class="product-buttons">
+                            <a href="/dash/editproduct?productid={{ product.id }}">
+                            <form >
+                                <button type="submit" class="edit-button">Editar</button>
+                            </form><a/>
+                            <form action="/dash/delete" method="post">
+                                <input type="hidden" name="deleteId" value="{{ product.id }}">
+                                <button type="submit" class="delete-button">Excluir</button>
+                            </form>
+                        </div>
+                        {% if product.imageList|length > 1 %}
+                            <div class="additional-images">
+                                {% for image in product.imageList|slice(1) %} 
+                                    <a href="{{ image }}" data-lightbox="{{ product.id }}">
+                                        <img src="{{ image }}" alt="{{ product.name }} - Imagem Adicional">
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
-                    <form action="/dash?prudctId{{product.id}}" method="get">
-                        <button type="submit" class="edit-button">Editar</button>
-                    </form>
-                    <form action="/dash/delete" method="post">
-                        <input type="hidden" name="deleteId" value={{product.id}}>
-                        <button type="submit" class="delete-button">Excluir</button>
-                    </form>
-                </div>
-                {% endfor %}
-            </div>
-        </main>
-    </div>
-</body>
-</html>
+                    {% endfor %}
+             </div>
+         </main>
+     </div>
+ </body>
+ </html>
