@@ -122,29 +122,6 @@ class Product {
         return $uploadedPaths;
     }
 
-
-    private static function uploadImage(array $imageFile, string $productName): ?string
-    {
-        if ($imageFile['error'] === UPLOAD_ERR_OK) {
-            $originalName = $imageFile['name'];
-            $tmpName = $imageFile['tmp_name'];
-            $uniqueName = self::generateUniqueImageName($originalName, $productName);
-            $uploadDir = '/images/';
-            $destinationPath = __DIR__.'/../../public_html' . $uploadDir . $uniqueName;
-            $relativeImagePath = $uploadDir . $uniqueName;
-
-            if (move_uploaded_file($tmpName, $destinationPath)) {
-                return $relativeImagePath;
-            } else {
-                SonoLogger::log( 'Erro ao mover o arquivo para o destino.');
-                return null;
-            }
-        } else {
-            SonoLogger::log( 'Erro no upload da imagem: ' . $imageFile['error']);
-            return null;
-        }
-    }
-
     private static function generateUniqueImageName(string $originalName, string $productName): string
     {
         $extension = pathinfo($originalName, PATHINFO_EXTENSION);

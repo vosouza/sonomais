@@ -13,7 +13,7 @@ class DashboardView implements ViewInterface
 
     public function __construct()
     {
-        $loader = new FilesystemLoader('../src/view/dashboard');
+        $loader = new FilesystemLoader(__DIR__);
         $this->viewFile = 'dashboard.html.twig';
         $this->twig = new Environment($loader);
     }

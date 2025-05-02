@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once '../vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';;
 
 use Vosouza\Sonomais\data\repository\{
     ProductRepository,
@@ -125,5 +125,5 @@ try{
 
 
 }catch(Exception $e){
-    var_dump(value: $e->getMessage());
+    SonoLogger::log('_SERVER = '.var_export($e, true));
 }

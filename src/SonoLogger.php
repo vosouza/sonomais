@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Vosouza\Sonomais;
 
-require_once '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use Katzgrau\KLogger\Logger as KLogger;
 

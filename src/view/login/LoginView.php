@@ -12,7 +12,7 @@ class LoginView implements ViewInterface
 
     public function __construct()
     {
-        $loader = new FilesystemLoader('../src/view/login'); // Caminho para seus templates
+        $loader = new FilesystemLoader(__DIR__); // Caminho para seus templates
         $this->twig = new Environment($loader);
     }
 
