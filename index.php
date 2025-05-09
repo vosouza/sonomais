@@ -42,6 +42,7 @@ $pathInfo = $_SERVER['PATH_INFO'] ?? '/';
 $parte_a_remover = '/public_html';
 $pathInfo = str_replace($parte_a_remover, '', $pathInfo);
 $controller = null;
+print_r($_GET);
 
 SonoLogger::log('PATH_INFO = '.$_SERVER['PATH_INFO']);
 SonoLogger::log('GET = '.$_GET['productid']);
@@ -91,7 +92,7 @@ try{
         $controller->deleteProduct();
         
     }else if($pathInfo === '/dash/editproduct'){
-        
+        SonoLogger::log('passou aqui');
         if(SessionRegistry::isLoggedIn() == false){
             header('Location: /login', true, 303);
             exit();

@@ -1,11 +1,7 @@
 RewriteEngine On
 
-# Redirecionar todas as requisições que não são arquivos ou diretórios existentes
-# e não estão nas pastas permitidas para o index.php, mantendo a query string
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_URI} !^/(images|uploads|scripts|css)/ [NC]
-RewriteRule ^(.*)$ index.php/$1 [QSA,L]
+# Desabilitar a listagem de diretórios (opcional, mas recomendado)
+Options -Indexes
 
 # Negar acesso a todos os arquivos por padrão (para segurança)
 <Files *>
@@ -21,6 +17,3 @@ RewriteRule ^(.*)$ index.php/$1 [QSA,L]
 <DirectoryMatch "^(images|uploads|scripts|css)$">
     Require all granted
 </DirectoryMatch>
-
-# Desabilitar a listagem de diretórios (opcional, mas recomendado)
-Options -Indexes
