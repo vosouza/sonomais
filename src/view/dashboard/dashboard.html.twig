@@ -187,10 +187,10 @@
                             </div>
                         </div>
                         <div class="product-buttons">
-                            <a href="/dash/editproduct?productid={{ product.id }}">
-                            <form >
+                            <form action="/dash/editproduct" method="get">
+                                <input type="hidden" name="productid" value="{{ product.id }}">
                                 <button type="submit" class="edit-button">Editar</button>
-                            </form><a/>
+                            </form>
                             <form action="/dash/delete" method="post">
                                 <input type="hidden" name="deleteId" value="{{ product.id }}">
                                 <button type="submit" class="delete-button">Excluir</button>
