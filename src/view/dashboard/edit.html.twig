@@ -1,287 +1,165 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Produto</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editar Produto</title>
+    <link rel="stylesheet" href="/css/dash.css" />
     <style>
-        body {
-            font-family: sans-serif;
-            margin: 20px;
-        }
-
-        .produto-detalhe {
-            display: flex;
-            gap: 30px;
-            max-width: 800px;
-            margin: 0 auto 20px; /* Adicionado margem inferior para separar dos sugeridos */
-        }
-
-        .carrossel-container {
-            width: 400px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .carrossel {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .carrossel img {
-            width: 400px;
-            height: auto;
-            object-fit: cover;
-        }
-
-        .carrossel-nav {
-            position: absolute;
-            top: 50%;
-            left: 10px;
-            right: 10px;
-            transform: translateY(-50%);
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .carrossel-nav button {
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 16px;
+        .edit-form-container {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
             border-radius: 5px;
+            background-color: #f9f9f9;
         }
 
-        .detalhes {
-            flex-grow: 1;
+        .form-group {
+            margin-bottom: 15px;
         }
 
-        .produto-titulo {
-            font-size: 2em;
-            margin-bottom: 10px;
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
 
-        .produto-descricao {
-            line-height: 1.6;
-            margin-bottom: 20px;
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
         }
 
-        .whatsapp-button {
-            background-color: #25D366; /* Cor verde do WhatsApp */
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+        .form-group input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .form-group .images-preview {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
             gap: 10px;
-            text-decoration: none;
-        }
-
-        .whatsapp-button svg {
-            /* Ícone do WhatsApp */
-            width: 24px;
-            height: 24px;
-            fill: white;
-        }
-
-        .carrossel-indicadores {
-            text-align: center;
             margin-top: 10px;
         }
 
-        .carrossel-indicadores button {
-            background-color: #bbb;
+        .form-group .images-preview img {
+            max-width: 100px;
+            height: auto;
+            border: 1px solid #eee;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-group .upload-message {
+            font-size: 0.9em;
+            color: #777;
+            margin-top: 5px;
+        }
+
+        .form-actions {
+            margin-top: 20px;
+        }
+
+        .save-button,
+        .cancel-button {
+            padding: 10px 15px;
             border: none;
-            border-radius: 50%;
-            width: 10px;
-            height: 10px;
-            margin: 0 5px;
+            border-radius: 4px;
+            font-size: 16px;
             cursor: pointer;
         }
 
-        .carrossel-indicadores button.active {
-            background-color: #717171;
+        .save-button {
+            background-color: #4CAF50;
+            color: white;
+            margin-right: 10px;
         }
 
-        /* Estilos para a lista de produtos sugeridos */
-        .produtos-sugeridos-container {
-            margin-top: 30px;
+        .save-button:hover {
+            background-color: #45a049;
         }
 
-        .produtos-sugeridos-titulo {
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            text-align: center;
+        .cancel-button {
+            background-color: #f44336;
+            color: white;
         }
 
-        .produtos-sugeridos-lista {
-            display: flex;
-            overflow-x: auto; /* Habilita a rolagem horizontal */
-            gap: 20px;
-            padding-bottom: 15px; /* Para garantir que a rolagem não corte o último item */
-        }
-
-        .produto-sugerido-item {
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            width: 200px;
-            min-width: 200px; /* Evita que os itens encolham demais */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .produto-sugerido-item img {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-        }
-
-        .produto-sugerido-info {
-            padding: 10px;
-            text-align: center;
-        }
-
-        .produto-sugerido-nome {
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 1em;
-        }
-
-        .produto-sugerido-preco {
-            color: #888;
-            font-size: 0.9em;
+        .cancel-button:hover {
+            background-color: #d32f2f;
         }
     </style>
 </head>
 <body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <h2>Sono+</h2>
+            <ul>
+                <li><a href="/dash">Produtos</a></li>
+                <li><a href="/logout">Sair</a></li>
+            </ul>
+        </aside>
 
-    <div class="produto-detalhe">
-        <div class="carrossel-container">
-            <div class="carrossel" id="carrossel">
-                <img src="imagem1.jpg" alt="Imagem 1 do Produto">
-                <img src="imagem2.jpg" alt="Imagem 2 do Produto">
-                <img src="imagem3.jpg" alt="Imagem 3 do Produto">
+        <main class="main-content">
+            <h1>Editar Produto</h1>
+
+            <div class="edit-form-container">
+                <form class="product-form" action="/dash/editproduct" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value={{ product.id }}>
+
+                    <div class="form-group">
+                        <label for="name">Nome</label>
+                        <input type="text" id="name" name="name" value="{{ product.name }}" placeholder="Digite o nome">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Descrição</label>
+                        <textarea id="description" name="description" rows="5" placeholder="Descrição do produto">{{ product.description }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="type">Tipo</label>
+                        <select id="type" name="type">
+                            <option value="estofados" {% if product.type == 'estofados' %}selected{% endif %}>Estofados</option>
+                            <option value="colchoes" {% if product.type == 'colchoes' %}selected{% endif %}>Colchões</option>
+                            <option value="outros" {% if product.type == 'outros' %}selected{% endif %}>Outros</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Preço</label>
+                        <input type="number" id="price" name="price" value="{{ product.price }}" placeholder="Ex: 99.90" step="0.01">
+                    </div>
+
+                    <div class="form-group checkbox">
+                        <label>
+                            <input type="checkbox" id="isStar" name="isStar" value="1" {% if product.isStar %}checked{% endif %}>
+                            Destaque
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Imagens Atuais</label>
+                        <div class="images-preview">
+                            {% for image in product.imageList %}
+                                <img src="{{ image }}" alt="{{ product.name }} - Imagem">
+                            {% endfor %}
+                        </div>
+                        <p class="upload-message">Selecione novas imagens para adicionar ou substituir as existentes.</p>
+                        <label for="image">Adicionar/Substituir Imagens</label>
+                        <input type="file" id="image" name="image[]" accept="image/*" multiple>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="save-button">Salvar Alterações</button>
+                        <a href="/dash" class="cancel-button">Cancelar</a>
+                    </div>
+                </form>
             </div>
-            <div class="carrossel-nav">
-                <button onclick="mudarSlide(-1)">&#10094;</button>
-                <button onclick="mudarSlide(1)">&#10095;</button>
-            </div>
-            <div class="carrossel-indicadores" id="carrossel-indicadores">
-            </div>
-        </div>
-        <div class="detalhes">
-            <h1 class="produto-titulo">Nome do Produto Incrível</h1>
-            <p class="produto-descricao">
-                Esta é a descrição detalhada do produto. Aqui você pode incluir informações sobre suas características, benefícios, materiais, dimensões, etc. Seja o mais informativo possível para ajudar o cliente a tomar uma decisão de compra.
-                Adicione quantos parágrafos forem necessários para cobrir todos os aspectos importantes do produto.
-            </p>
-            <a href="https://wa.me/SEUNUMERODOTELEFONE" class="whatsapp-button" target="_blank">
-                <svg viewBox="0 0 32 32" style="fill:currentColor;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:2;">
-                    <path d="M19 6.344c-5.35 0-9.688 4.337-9.688 9.688 0 2.088.644 4.1 1.863 5.806l-1.938 7.038 7.288-1.9c1.65.9 3.488 1.4 5.363 1.4 5.35 0 9.688-4.337 9.688-9.688s-4.337-9.688-9.688-9.688zm0 15.713c-1.5 0-2.95-.438-4.138-1.188l.438-1.562c1.125.688 2.388 1.063 3.7 1.063 4.125 0 7.463-3.338 7.463-7.463s-3.338-7.463-7.463-7.463c-4.125 0-7.463 3.338-7.463 7.463 0 1.313.375 2.575 1.063 3.7l-1.6 4.7 4.7-1.6c1.125.688 2.388 1.063 3.7 1.063 1.5 0 2.95-.438 4.138-1.188l-.438 1.562c-1.125.688-2.388 1.063-3.7 1.063z"/>
-                </svg>
-                Falar com Atendente
-            </a>
-        </div>
+        </main>
     </div>
-
-    <div class="produtos-sugeridos-container">
-        <h2 class="produtos-sugeridos-titulo">Produtos Sugeridos</h2>
-        <div class="produtos-sugeridos-lista">
-            <div class="produto-sugerido-item">
-                <img src="produto_sugerido1.jpg" alt="Produto Sugerido 1">
-                <div class="produto-sugerido-info">
-                    <h3 class="produto-sugerido-nome">Produto A</h3>
-                    <p class="produto-sugerido-preco">R$ 29,99</p>
-                    <a href="#">Ver Detalhes</a>
-                </div>
-            </div>
-            <div class="produto-sugerido-item">
-                <img src="produto_sugerido2.jpg" alt="Produto Sugerido 2">
-                <div class="produto-sugerido-info">
-                    <h3 class="produto-sugerido-nome">Produto B</h3>
-                    <p class="produto-sugerido-preco">R$ 49,99</p>
-                    <a href="#">Ver Detalhes</a>
-                </div>
-            </div>
-            <div class="produto-sugerido-item">
-                <img src="produto_sugerido3.jpg" alt="Produto Sugerido 3">
-                <div class="produto-sugerido-info">
-                    <h3 class="produto-sugerido-nome">Produto C</h3>
-                    <p class="produto-sugerido-preco">R$ 19,99</p>
-                    <a href="#">Ver Detalhes</a>
-                </div>
-            </div>
-            <div class="produto-sugerido-item">
-                <img src="produto_sugerido4.jpg" alt="Produto Sugerido 4">
-                <div class="produto-sugerido-info">
-                    <h3 class="produto-sugerido-nome">Produto D</h3>
-                    <p class="produto-sugerido-preco">R$ 59,99</p>
-                    <a href="#">Ver Detalhes</a>
-                </div>
-            </div>
-            <div class="produto-sugerido-item">
-                <img src="produto_sugerido5.jpg" alt="Produto Sugerido 5">
-                <div class="produto-sugerido-info">
-                    <h3 class="produto-sugerido-nome">Produto E</h3>
-                    <p class="produto-sugerido-preco">R$ 34,99</p>
-                    <a href="#">Ver Detalhes</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const carrossel = document.getElementById('carrossel');
-        const imagens = carrossel.querySelectorAll('img');
-        const indicadoresContainer = document.getElementById('carrossel-indicadores');
-        let indiceAtual = 0;
-
-        function atualizarCarrossel() {
-            carrossel.style.transform = `translateX(-${indiceAtual * 400}px)`;
-            atualizarIndicadores();
-        }
-
-        function mudarSlide(direcao) {
-            indiceAtual += direcao;
-            if (indiceAtual < 0) {
-                indiceAtual = imagens.length - 1;
-            } else if (indiceAtual >= imagens.length) {
-                indiceAtual = 0;
-            }
-            atualizarCarrossel();
-        }
-
-        function criarIndicadores() {
-            imagens.forEach((_, indice) => {
-                const button = document.createElement('button');
-                button.addEventListener('click', () => {
-                    indiceAtual = indice;
-                    atualizarCarrossel();
-                });
-                indicadoresContainer.appendChild(button);
-            });
-            atualizarIndicadores();
-        }
-
-        function atualizarIndicadores() {
-            const indicadores = indicadoresContainer.querySelectorAll('button');
-            indicadores.forEach((indicador, indice) => {
-                indicador.classList.remove('active');
-                if (indice === indiceAtual) {
-                    indicador.classList.add('active');
-                }
-            });
-        }
-
-        criarIndicadores();
-        atualizarCarrossel(); // Inicializa o carrossel
-    </script>
-
 </body>
 </html>

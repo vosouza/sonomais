@@ -43,14 +43,27 @@ class DashViewController implements Controller{
 
     public function editProduct(){
         $this->view->renderEdit();
-        $productId = filter_input(INPUT_GET, "productid", FILTER_VALIDATE_INT);
-        SonoLogger::log(message: 'EDITPRODUCT GET');
-        $product = $this->productRepository->getById($productId);
-        if ($product != null) {
-            $this->editProduct = $product;
+
+        $product = Product::fromPost();
+
+        if($product == null){
+            $productId = filter_input(INPUT_GET, "productid", FILTER_VALIDATE_INT);
+            $product = $this->productRepository->getById($productId);
+            if ($product != null) {
+                $this->editProduct = $product;
+            }else{
+                SonoLogger::log( "produto nao encontrado");
+            }
         }else{
-            SonoLogger::log( "produto nao encontrado");
+            $this->productRepository->update(product: $product, id: $product->id );
+            $product = $this->productRepository->getById(id: $product->id);
+            if ($product != null) {
+                $this->editProduct = $product;
+            }else{
+                SonoLogger::log( "produto nao encontrado");
+            }
         }
+        
     }
 
     public function deleteProduct(){
@@ -70,9 +83,13 @@ class DashViewController implements Controller{
     }
 
     public function processaRequisicao(): void{
-        $products = $this->productRepository->findAll();
-        SonoLogger::log(var_export($products, true));
-        $this->view->show(["products"=> $products]);
+        if($this->editProduct == null){
+            $products = $this->productRepository->findAll();
+            SonoLogger::log(var_export($products, true));
+            $this->view->show(["products"=> $products]);
+        }else{
+            $this->view->show(["product"=> $this->editProduct]);
+        }
     }
 
     public function isPostCreateProduct(): bool {

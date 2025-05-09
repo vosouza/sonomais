@@ -1,19 +1,4 @@
 RewriteEngine On
-
-# Desabilitar a listagem de diretórios (opcional, mas recomendado)
-Options -Indexes
-
-# Negar acesso a todos os arquivos por padrão (para segurança)
-<Files *>
-    Require all denied
-</Files>
-
-# Permitir acesso ao index.php
-<FilesMatch "^(index\.php)$">
-    Require all granted
-</FilesMatch>
-
-# Permitir acesso aos arquivos dentro das pastas específicas
-<DirectoryMatch "^(images|uploads|scripts|css)$">
-    Require all granted
-</DirectoryMatch>
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?%{QUERY_STRING} [L]

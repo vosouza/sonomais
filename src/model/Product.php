@@ -53,6 +53,7 @@ class Product {
         }
 
         // Sanitização e conversão dos dados de texto
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
         $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
         $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
         $price = filter_input(INPUT_POST, 'price', FILTER_VALIDATE_FLOAT);
@@ -75,7 +76,7 @@ class Product {
         }
 
         return new Product(
-            0,
+            $id ?? 0,
             $name,
             $description,
             $price,

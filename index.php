@@ -44,11 +44,11 @@ $pathInfo = str_replace($parte_a_remover, '', $pathInfo);
 $controller = null;
 print_r($_GET);
 
-SonoLogger::log('PATH_INFO = '.$_SERVER['PATH_INFO']);
-SonoLogger::log('GET = '.$_GET['productid']);
-SonoLogger::log('_PUT = '.$_PUT['productid']);
-SonoLogger::log('_POST = '.$_POST['productid']);
-SonoLogger::log('_SERVER = '.var_export($_SERVER,true));
+// SonoLogger::log('PATH_INFO = '.$_SERVER['PATH_INFO']);
+// SonoLogger::log('GET = '.$_GET['productid']);
+// SonoLogger::log('_PUT = '.$_PUT['productid']);
+// SonoLogger::log('_POST = '.$_POST['productid']);
+// SonoLogger::log('_SERVER = '.var_export($_SERVER,true));
 try{
     if ($pathInfo === '/') {
 
