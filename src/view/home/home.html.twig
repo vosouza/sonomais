@@ -47,7 +47,9 @@
                 {% for product in products %}
                     <div class="product-item">
                         <img src={{product.imageList[0]}} alt={{product.name}}>
+                        <a href="{{ base ~ "details?productid=" ~ product.id }}">
                         <p>{{ product.name }}</p>
+                        </a>
                     </div>
                 {% endfor %}
                

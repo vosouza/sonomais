@@ -10,6 +10,7 @@ use Vosouza\Sonomais\data\repository\{
 };
 use Vosouza\Sonomais\view\login\LoginView;
 use Vosouza\Sonomais\view\dashboard\DashboardView;
+use Vosouza\Sonomais\view\details\DetailsView;
 use Vosouza\Sonomais\view\home\HomeView;
 use Vosouza\Sonomais\{
     SessionRegistry,
@@ -25,17 +26,21 @@ use Vosouza\Sonomais\controller\{
     HomeViewController,
     DashViewController,
     LoginViewController,
+    DetailsViewController,
 };
 
 
 SessionRegistry::initialize();
 SonoLogger::initialize();
 
+$baseURL = '';
 $dataSource;
 if ($_SERVER['SERVER_NAME'] === 'localhost'){
     $dataSource = new DataSourceTest();
+    $baseURL = 'http://localhost:8080/';
 }else{
     $dataSource = new DataSource();
+    $baseURL = 'https://darkgreen-moose-358229.hostingersite.com/';
 }
 
 $pathInfo = $_SERVER['PATH_INFO'] ?? '/';
@@ -53,8 +58,14 @@ try{
     if ($pathInfo === '/') {
 
         $repo = new ProductRepository(source: $dataSource);
-        $view = new HomeView();
+        $view = new HomeView($baseURL);
         $controller = new HomeViewController(view: $view, productRepository: $repo);
+
+    }else if($pathInfo === '/details'){
+
+        $repo = new ProductRepository(source: $dataSource);
+        $view = new DetailsView();
+        $controller = new DetailsViewController(view: $view, productRepository: $repo);
         
     }else if($pathInfo === '/dash'){
 

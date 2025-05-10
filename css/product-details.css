@@ -1,0 +1,153 @@
+/* Estilos para a página de detalhes do produto */
+.product-details {
+    padding: 40px 0;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.product-images {
+    /* Estilos para o carrossel */
+}
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-slide {
+    display: none;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.prev-btn, .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.product-info h1 {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.product-info .description {
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.whatsapp-button {
+    background-color: #25D366; /* Cor verde do WhatsApp */
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1em;
+    text-decoration: none;
+    width: fit-content;
+    transition: background-color 0.3s ease;
+}
+
+.whatsapp-button:hover {
+    background-color: #128C7E;
+}
+
+.whatsapp-button .material-icons {
+    font-size: 1.5em;
+}
+
+.recommended-products {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.recommended-list {
+    display: flex;
+    flex-direction: row; /* Layout horizontal */
+    gap: 20px;
+    overflow-x: auto; /* Adiciona barra de rolagem horizontal se necessário */
+    padding: 20px;
+}
+
+.recommended-item {
+    flex: 0 0 auto; /* Impede que os itens cresçam e encolham */
+    width: 200px; /* Largura desejada para cada item */
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.recommended-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.recommended-item p {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.recommended-item a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+.recommended-item a:hover {
+    color: #0056b3;
+}
+
+/* Responsivo para telas menores */
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr; /* Uma coluna em telas menores */
+    }
+
+    .product-info h1 {
+        font-size: 2em;
+    }
+
+    .recommended-list {
+        width: 100%; /* Ocupar toda a largura em mobile */
+    }
+
+    .recommended-item {
+        width: 95%; /* Ajustar largura dos itens recomendados em mobile */
+    }
+}
