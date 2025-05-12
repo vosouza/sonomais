@@ -3,32 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sono+</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>Detalhes do Produto - Sono+</title>
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/product-details.css">
-    <script defer src="/scripts/product-details.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.3/simple-lightbox.css" integrity="sha512-5gTxhbmgsOKfPP2+TeKslkMmyxF0Cmyr2YrJrfaXD/ChLHavFXGzDDG9ZiOca1P/2/5nXuujkB2BWymVKu1pPg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.3/simple-lightbox.min.js" integrity="sha512-Vtot07oogPy4e0JzAfUgyvia0fATgR1PWWNG89EeQgPXmaIhjGQIFijUVxRn0TScCMCH57Y7eJSixmYYDJkJ1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="/scripts/script.js"></script>
     <script defer src="/scripts/product-details.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.3/simple-lightbox.min.js" integrity="sha512-Vtot07oogPy4e0JzAfUgyvia0fATgR1PWWNG89EeQgPXmaIhjGQIFijUVxRn0TScCMCH57Y7eJSixmYYDJkJ1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <header>
-        <nav class="navbar">
-            <div class="container">
-                <div class="logo">Sono+</div>
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="#">Estofados</a></li>
-                    <li><a href="#">Colchões</a></li>
-                    <li><a href="#">Sobre</a></li>
-                </ul>
-                <div class="menu-icon" id="menuIcon" onclick="toggleMenu()">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-            </div>
-        </nav>
+        {% include 'menu.html.twig'%}
     </header>
 
     <main class="product-details">

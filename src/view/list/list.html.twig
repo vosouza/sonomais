@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Sono+ - {{ listName }}</title>
+    <link rel="stylesheet" href="{{ base }}/css/styles.css">
+    <script defer src="{{ base }}/scripts/script.js"></script>
+    <style>
+        .container-title h2 {
+            text-align: center;
+        }
+
+        .product-item a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .product-item a:hover {
+            color: #007bff;
+        }
+
+        .products-listing {
+            margin-bottom: 40px; /* Adiciona um espaçamento de 40 pixels abaixo da lista de produtos */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        {% include 'menu.html.twig' %}
+    </header>
+
+    <section class="products-listing">
+        <div class="container">
+            <div class="container-title">
+                <h2>{{ listName }}</h2>
+            </div>
+            <div class="product-grid">
+                {% if products is not empty %}
+                    {% for product in products %}
+                        <div class="product-item">
+                            {% if product.imageList is not empty %}
+                                <img src="{{ product.imageList[0] }}" alt="{{ product.name }}">
+                            {% else %}
+                                <img src="{{ base }}/images/placeholder.png" alt="Imagem não disponível">
+                            {% endif %}
+                            <a href="{{ base }}details?productid={{ product.id }}">
+                                <p>{{ product.name }}</p>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Nenhum produto encontrado nesta categoria.</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Nosso Endereço</h3>
+                    <p>Rua Exemplo, 123 - Centro</p>
+                    <p>São Paulo, SP - Brasil</p>
+                    <p>CEP: 01000-000</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Nos siga</h3>
+                    <div class="social-icons">
+                        <a href="#"><span class="material-icons">facebook</span></a>
+                        <a href="#"><span class="material-icons">photo_camera</span></a>
+                        <a href="#"><span class="material-icons">smart_display </span></a>
+                    </div>
+                </div>
+            </div>
+
+            <p class="copyright"><a href="/dash">Portal Interno</a></p>
+            <p class="copyright">&copy; 2024 Dawn - Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

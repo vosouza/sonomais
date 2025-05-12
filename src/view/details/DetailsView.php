@@ -12,7 +12,8 @@ class DetailsView implements ViewInterface
 
     public function __construct()
     {
-        $loader = new FilesystemLoader(__DIR__ ); // Caminho para seus templates
+        $loader = new FilesystemLoader([__DIR__, __DIR__.'/../templates']  
+     ); // Caminho para seus templates
         $this->twig = new Environment($loader);
     }
 

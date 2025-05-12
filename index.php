@@ -11,6 +11,7 @@ use Vosouza\Sonomais\data\repository\{
 use Vosouza\Sonomais\view\login\LoginView;
 use Vosouza\Sonomais\view\dashboard\DashboardView;
 use Vosouza\Sonomais\view\details\DetailsView;
+use Vosouza\Sonomais\view\list\ProductList;
 use Vosouza\Sonomais\view\home\HomeView;
 use Vosouza\Sonomais\{
     SessionRegistry,
@@ -27,6 +28,7 @@ use Vosouza\Sonomais\controller\{
     DashViewController,
     LoginViewController,
     DetailsViewController,
+    ProductListController
 };
 
 
@@ -62,6 +64,24 @@ try{
         $controller = new HomeViewController(view: $view, productRepository: $repo);
 
     }else if($pathInfo === '/details'){
+
+        $repo = new ProductRepository(source: $dataSource);
+        $view = new DetailsView();
+        $controller = new DetailsViewController(view: $view, productRepository: $repo);
+        
+    }else if($pathInfo === '/colchoes'){
+
+        $repo = new ProductRepository(source: $dataSource);
+        $view = new ProductList($baseURL, "Colchões");
+        $controller = new ProductListController(view: $view, productRepository: $repo, type: "colchoes");
+        
+    }else if($pathInfo === '/estofados'){
+
+        $repo = new ProductRepository(source: $dataSource);
+        $view = new ProductList($baseURL, "Estofados");
+        $controller = new ProductListController(view: $view, productRepository: $repo, type: "estofados");
+        
+    }else if($pathInfo === '/sobre'){
 
         $repo = new ProductRepository(source: $dataSource);
         $view = new DetailsView();
