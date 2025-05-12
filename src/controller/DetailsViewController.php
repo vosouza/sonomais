@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Vosouza\Sonomais\controller;
 
 use Vosouza\Sonomais\data\repository\ProductRepository;
+use Vosouza\Sonomais\model\Product;
 use Vosouza\Sonomais\view\ViewInterface;
 
 class DetailsViewController implements Controller{
@@ -31,9 +32,10 @@ class DetailsViewController implements Controller{
 
         $this->productID = filter_input(INPUT_GET, 'productid', FILTER_VALIDATE_INT);
     }
+
     public function processaRequisicao(): void{
         $showMore = $this->productRepository->findAll();
         $product = $this->productRepository->getById($this->productID);
-        $this->view->show(["product" => $product, "showMore"=> $showMore]);
+        $this->view->show(["product" => $product, "showMore"=> $showMore,]);
     }
 }

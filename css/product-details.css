@@ -72,13 +72,15 @@
     padding: 15px 20px;
     border-radius: 5px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
+    display: flex; /* Usar flexbox para alinhar o conteúdo */
+    align-items: center; /* Alinhar verticalmente ao centro */
+    justify-content: center; /* Alinhar horizontalmente ao centro */
     gap: 10px;
     font-size: 1em;
     text-decoration: none;
-    width: fit-content;
+    width: fit-content; /* Ajustar a largura ao conteúdo */
     transition: background-color 0.3s ease;
+    margin-top: 15px; /* Adicione uma margem superior para espaçamento */
 }
 
 .whatsapp-button:hover {
@@ -135,6 +137,20 @@
 
 /* Responsivo para telas menores */
 @media (max-width: 768px) {
+    .whatsapp-button {
+        display: block; /* Mantém o botão como bloco */
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center; /* Pode ser útil para fallback */
+        width: fit-content;
+
+        /* Estilos para alinhar o conteúdo interno */
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
     .product-grid {
         grid-template-columns: 1fr; /* Uma coluna em telas menores */
     }

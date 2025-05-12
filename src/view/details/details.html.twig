@@ -51,7 +51,7 @@
                     <h1>{{ product.name }}</h1>
                     <p class="description">{{ product.description }}</p>
                     <button class="whatsapp-button">
-                        <span class="material-icons">whatsapp</span> Converse no WhatsApp
+                        <img src="/images/whatsapp.png" alt="Ícone do WhatsApp"> Converse no WhatsApp
                     </button>
                 </div>
             </div>
@@ -95,5 +95,16 @@
             <p class="copyright">&copy; 2024 Dawn - Todos os direitos reservados.</p>
         </div>
     </footer>
+    <script>
+        // Adicionar funcionalidade ao botão WhatsApp (substitua o link pelo seu número)
+        const saudacao = "Olá! Gostaria de mais informações sobre o produto: ";
+        const mensagem = encodeURIComponent(saudacao + "{{product.name}}");
+        const whatsappButton = document.querySelector('.whatsapp-button');
+        if (whatsappButton) {
+            whatsappButton.addEventListener('click', () => {
+                window.open(`https://wa.me/83986801505?text=${mensagem}`, '_blank');
+            });
+        }
+    </script>
 </body>
 </html>
