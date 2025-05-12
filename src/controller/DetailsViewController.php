@@ -30,7 +30,8 @@ class DetailsViewController implements Controller{
             exit();
         }
 
-        $this->productID = filter_input(INPUT_GET, 'productid', FILTER_VALIDATE_INT);
+        $this->productID = filter_input(INPUT_GET, 'productid', 
+        FILTER_VALIDATE_INT);
     }
 
     public function processaRequisicao(): void{

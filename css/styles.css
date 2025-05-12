@@ -120,7 +120,7 @@ body {
 }
 
 .product-item {
-    width: 200px;
+    width: 300px;
     /* Ou qualquer largura fixa que use no desktop */
     text-align: center;
 }
@@ -235,6 +235,6 @@ footer {
     }
 
     .product-item {
-        width: calc(50% - 10px);
+        width: 100%;
     }
 }
