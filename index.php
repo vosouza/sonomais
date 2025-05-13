@@ -56,6 +56,7 @@ $controller = null;
 // SonoLogger::log('_PUT = '.$_PUT['productid']);
 // SonoLogger::log('_POST = '.$_POST['productid']);
 // SonoLogger::log('_SERVER = '.var_export($_SERVER,true));
+echo "TESTE DE GIT";
 try{
     if ($pathInfo === '/') {
 
