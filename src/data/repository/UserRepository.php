@@ -17,20 +17,20 @@ class UserRepository
     public function __construct(DataSourceInterface $pdo)
     {
         $this->pdo = $pdo->getConection();
-        $this->createTableIfNotExists();
+        // $this->createTableIfNotExists();
     }
 
-    private function createTableIfNotExists(): void
-    {
-        $sql = "CREATE TABLE IF NOT EXISTS {$this->tableName} (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            name TEXT NOT NULL,
-            email TEXT NOT NULL,
-            password TEXT NOT NULL,
-            INDEX (id) -- Adicionar um índice para a coluna id_text para buscas rápidas
-        )";
-        $this->pdo->exec($sql);
-    }
+    // private function createTableIfNotExists(): void
+    // {
+    //     $sql = "CREATE TABLE IF NOT EXISTS {$this->tableName} (
+    //         id INT AUTO_INCREMENT PRIMARY KEY,
+    //         name TEXT NOT NULL,
+    //         email TEXT NOT NULL,
+    //         password TEXT NOT NULL,
+    //         INDEX (id) -- Adicionar um índice para a coluna id_text para buscas rápidas
+    //     )";
+    //     $this->pdo->exec($sql);
+    // }
 
     public function create(User $user): ?string
     {
@@ -86,10 +86,6 @@ class UserRepository
     public function verifyCredentials(string $email, string $password): ?User
     {
         try{
-            // if($email == 'cpudvini@gmail.com' && $password == '1234'){
-            //     return new User(0,'Vinicius', 'cpudvini@gmail.com',   '1234');
-            // 
-            // }
             $user = $this->findByEmail(email: $email);
 
             if ($user && password_verify(password: $password, hash: $user->getPassword())) {

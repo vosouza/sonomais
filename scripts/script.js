@@ -7,3 +7,6 @@ function toggleMenu() {
     icon.classList.toggle('open');
     body.classList.toggle('no-scroll');
 }
+document.addEventListener('DOMContentLoaded', () => {
+    const lightbox = new SimpleLightbox('.featured-image a');
+});

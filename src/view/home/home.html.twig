@@ -15,31 +15,76 @@
 
     <section class="hero">
         <div class="container">
-            <div class="hero-content">
+            <div class="hero-content hero-text-wrapper">
                 <h1>Melhores produtos escolhidos para seu lar.</h1>
                 <p>Seu sono, nossa prioridade!</p>
             </div>
         </div>
     </section>
+
+    <section class="featured-product">
+        <div class="container">
+            <div class="featured-grid">
+                <div class="featured-image">
+                    {% if featuredProduct.imageList is not empty %}
+                        <a href="{{ base ~ "details?productid=" ~ featuredProduct.id }}" data-lightbox="featured-product">
+                            <img src="{{ featuredProduct.imageList[0] }}" alt="{{ featuredProduct.name }}">
+                        </a>
+                    {% else %}
+                        <img src="{{ base }}/images/placeholder-featured.png" alt="Imagem do produto em destaque não disponível">
+                    {% endif %}
+                </div>
+                <div class="featured-content">
+                    <h3>{{ featuredProduct.name|upper }}</h3>
+                    <p class="featured-description">{{ featuredProduct.description|slice(0, 200) }}...</p>
+                    <div class="featured-button-container">
+                        <button class="talk-button">Conversar com um especialista</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="products">
         <div class="container">
             <div class="container-title">
                 <h2>Os melhores produtos para seu lar.</h2>
-                <p>Functional handbags made of luxurious and honest materials.</p>
+                <p>Seleção dos nossos melhores produtos dísponíveis para você.</p>
             </div>
             <div class="product-grid">
                 
                 {% for product in products %}
                     <div class="product-item">
-                        <img src={{product.imageList[0]}} alt={{product.name}}>
+                        
                         <a href="{{ base ~ "details?productid=" ~ product.id }}">
-                        <p>{{ product.name }}</p>
+                        <img src={{product.imageList[0]}} alt={{product.name}}>
                         </a>
                     </div>
                 {% endfor %}
                
             </div>
         </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="container">
+            <h2>Nossas Unidades</h2>
+            <div class="units">
+                <div class="unit">
+                    <h3>Centro</h3>
+                    <p>Rua da Republica 638 Centro, </p>
+                    <p>João Pessoa - PB, Brasil</p>
+                    <p>CEP: 58010-180</p>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1979.5196039123734!2d-34.88867313962667!3d-7.121454542741112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ace87586b21c8f%3A0x475d8cf27e0dd068!2sR.%20da%20Rep%C3%BAblica%2C%20638%20-%20Centro%2C%20Jo%C3%A3o%20Pessoa%20-%20PB%2C%2058010-180!5e0!3m2!1spt-BR!2sbr!4v1747153669281!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                <div class="unit">
+                    <h3>Portal do Sol</h3>
+                    <p>Rua Ninalia de Luna Freire Barbosa, </p>
+                    <p>Portal do Sol, João Pessoa - PB, Brasil</p>
+                    <p>CEP: 58046-751</p>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d989.6775953401086!2d-34.81739763048256!3d-7.15944356890402!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7acc3018b39408b%3A0xc3b761c23426ae90!2sR.%20Nin%C3%A1lia%20de%20Luna%20Freire%20Barbosa%20-%20Portal%20do%20Sol%2C%20Jo%C3%A3o%20Pessoa%20-%20PB%2C%2058046-751!5e0!3m2!1spt-BR!2sbr!4v1747156541522!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>        </div>
+                </div>
+            </div>
     </section>
     
     <footer>
@@ -48,9 +93,9 @@
                 <!-- Endereço -->
                 <div class="footer-section">
                     <h3>Nosso Endereço</h3>
-                    <p>Rua Exemplo, 123 - Centro</p>
-                    <p>São Paulo, SP - Brasil</p>
-                    <p>CEP: 01000-000</p>
+                    <p>Rua da Republica 638 Centro, </p>
+                    <p>João Pessoa - PB, Brasil</p>
+                    <p>CEP: 58010-180</p>
                 </div>
     
                 <!-- Redes Sociais -->

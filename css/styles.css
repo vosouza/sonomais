@@ -5,6 +5,30 @@
     font-family: Arial, sans-serif;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  color: #00abfd;
+}
+
+/* Texto da logo (assumindo que a logo tenha um texto com uma classe específica ou esteja dentro de um elemento específico) */
+.logo { /* Use # se for um ID */
+  color: #00abfd;
+}
+
+/* Texto do menu (assumindo que os links do menu estejam dentro de um elemento <nav> e sejam links <a>) */
+nav a {
+  color: #00abfd;
+}
+
+/* Títulos do footer (assumindo que os títulos do footer estejam dentro de elementos h3 dentro de uma classe .footer-section) */
+footer .footer-section h3 {
+  color: #00abfd;
+}
+
+/* Se os títulos do footer tiverem outra estrutura, ajuste o seletor CSS conforme necessário */
+footer h4 { /* Exemplo para títulos h4 no footer */
+  color: #00abfd;
+}
+
 body {
     background-color: #fff;
     color: #333;
@@ -53,7 +77,7 @@ body {
 
 .nav-links li a {
     text-decoration: none;
-    color: #333;
+    color: #00abfd;
 }
 
 .menu-icon {
@@ -68,7 +92,7 @@ body {
 .menu-icon .bar {
     height: 3px;
     width: 100%;
-    background-color: #333;
+    background-color: #00abfd;
     transition: all 0.3s ease;
     border-radius: 2px;
 }
@@ -85,7 +109,6 @@ body {
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
-
 .hero {
     background: url('/images/hero.jpg') center/cover no-repeat;
     background-position: 50% 65%;
@@ -93,17 +116,27 @@ body {
     height: 300px;
     display: flex;
     align-items: center;
-    justify-content: center;
     color: white;
     text-align: center;
+      /* Outros estilos do hero */
+  flex-direction: column; /* Se o conteúdo estiver em coluna */
+  justify-content: flex-end; /* Alinha o conteúdo ao final do container (verticalmente) */
+  /* Se o conteúdo estiver em linha (imagem ao lado do texto), use align-items */
+  /* align-items: flex-end; */
+}
+
+.hero .container {
+  border-radius: 10px;
+  background-color: #00adfddb;
 }
 
 .hero-content {
-    width: 90%;
-    max-width: 800px;
+    margin-bottom: 12px;
+    margin-top: 8px;
 }
 
 .hero-content h1 {
+    color: white;
     font-size: 2rem;
 }
 
@@ -123,6 +156,14 @@ body {
     width: 300px;
     /* Ou qualquer largura fixa que use no desktop */
     text-align: center;
+}
+
+.product-item a :hover{
+    transform: scale(1.05);
+}
+
+.product-item a :focus{
+    transform: scale(1.05);
 }
 
 .product-item img {
@@ -183,6 +224,135 @@ footer {
     height: 100vh;
 }
 
+.featured-product {
+    background-color: #f9f9f9;
+    padding: 40px 0;
+    margin-bottom: 40px; /* Espaçamento abaixo da seção */
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: center;
+}
+
+.featured-image {
+    border-radius: 8px;
+    overflow: hidden; /* Garante que o link não vaze o arredondamento */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.featured-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease-in-out; /* Adiciona uma pequena animação ao passar o mouse (opcional) */
+}
+
+.featured-image a:hover img {
+    transform: scale(1.05); /* Pequeno zoom ao passar o mouse (opcional) */
+}
+
+.featured-content h3 {
+    font-size: 2.2em;
+    color: #00abfd;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.featured-content .featured-description {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.featured-button-container {
+    display: flex;
+    justify-content: center; /* Centraliza o botão */
+}
+
+.talk-button {
+    background-color: #28a745; /* Cor verde para o botão de conversar */
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.talk-button:hover {
+    background-color: #218838;
+}
+
+.contact-section {
+    background-color: #f9f9f9;
+    padding: 40px 0;
+    margin-bottom: 40px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .units {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  /* Estilos para o card da unidade */
+.unit {
+  flex: 1;
+  min-width: 300px;
+  margin-bottom: 20px;
+  padding: 20px; /* Adicione um padding para garantir espaço interno */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-align: center;
+  display: flex; /* Use flexbox para controlar o layout interno */
+  flex-direction: column; /* Alinha os itens verticalmente */
+  align-items: center; /* Centraliza os itens horizontalmente */
+}
+
+.unit h3 {
+  color: #00abfd;
+  margin-bottom: 10px;
+}
+
+.unit p {
+  margin-bottom: 15px;
+}
+
+/* Estilos para o iframe do mapa */
+.unit iframe {
+  width: 100%;
+  height: 300px;
+  border: 0;
+  border-radius: 5px;
+  margin-bottom: 15px; /* Adicione espaço entre o mapa e o botão */
+}
+
+/* Estilos para o botão "Ver no Google Maps" */
+.unitButton {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #00abfd;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: auto; /* Empurra o botão para a parte inferior (com flexbox) */
+}
+
+.unitButton:hover {
+  background-color: #007bbd;
+}
+
+
 /* Responsivo */
 @media (max-width: 768px) {
     .nav-links {
@@ -221,6 +391,21 @@ footer {
         height: 200px;
     }
 
+   .hero-content {
+        margin-bottom: 8px;
+        margin-top: 8px;
+    }
+
+    .hero-content h1 {
+        color: white;
+        font-size: 1.5rem;
+    }
+
+    .hero-content h1 {
+        color: white;
+        font-size: 0.5rem;
+    }
+
     .container-title{
         padding-top: 16px;
     }
@@ -236,5 +421,27 @@ footer {
 
     .product-item {
         width: 100%;
+    }
+
+    .featured-grid {
+        grid-template-columns: 1fr; /* Imagem e texto em linhas separadas em telas menores */
+    }
+
+    .featured-image {
+        margin-bottom: 20px;
+    }
+
+    .featured-content h3 {
+        font-size: 1.8em;
+    }
+
+    .featured-content .featured-button-container {
+        justify-content: center; /* Alinha o botão à esquerda em telas menores */
+    }
+    .units {
+      flex-direction: column;
+    }
+    .unit {
+      min-width: auto;
     }
 }

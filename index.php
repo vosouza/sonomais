@@ -56,13 +56,12 @@ $controller = null;
 // SonoLogger::log('_PUT = '.$_PUT['productid']);
 // SonoLogger::log('_POST = '.$_POST['productid']);
 // SonoLogger::log('_SERVER = '.var_export($_SERVER,true));
-echo "TESTE DE GIT";
 try{
     if ($pathInfo === '/') {
 
         $repo = new ProductRepository(source: $dataSource);
-        $view = new HomeView($baseURL);
-        $controller = new HomeViewController(view: $view, productRepository: $repo);
+        $view = new HomeView();
+        $controller = new HomeViewController(view: $view, productRepository: $repo, baseUrl: $baseURL);
 
     }else if($pathInfo === '/details'){
 

@@ -1,4 +1,41 @@
 /* Estilos para a página de detalhes do produto */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #00abfd;
+}
+
+/* Texto da logo (assumindo que a logo tenha um texto com uma classe específica ou esteja dentro de um elemento específico) */
+.logo-text,
+#logo-text { /* Use # se for um ID */
+  color: #00abfd;
+}
+
+/* Texto do menu (assumindo que os links do menu estejam dentro de um elemento <nav> e sejam links <a>) */
+nav a {
+  color: #00abfd;
+}
+
+/* Títulos do footer (assumindo que os títulos do footer estejam dentro de elementos h3 dentro de uma classe .footer-section) */
+footer .footer-section h3 {
+  color: #00abfd;
+}
+
+/* Se os títulos do footer tiverem outra estrutura, ajuste o seletor CSS conforme necessário */
+footer h4 { /* Exemplo para títulos h4 no footer */
+  color: #00abfd;
+}
+
+body {
+    background-color: #fff;
+    color: #333;
+}
+
 .product-details {
     padding: 40px 0;
 }

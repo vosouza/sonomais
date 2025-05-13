@@ -17,7 +17,7 @@ class ProductRepository
     public function __construct(DataSourceInterface $source)
     {
         $this->pdo = $source->getConection();
-        $this->createTable(); // Garante que a tabela exista
+        // $this->createTable(); // Garante que a tabela exista
     }
 
     private function extrairUrls(string $stringUrls): array
@@ -35,23 +35,23 @@ class ProductRepository
         return array_values($listaDeUrlsFinal);
     }
 
-    private function createTable(): void
-    {
-        try {
-            $this->pdo->exec("CREATE TABLE IF NOT EXISTS produtos (
-                id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                name TEXT NOT NULL,
-                description TEXT NOT NULL,
-                price REAL NOT NULL,
-                type TEXT NOT NULL,
-                image TEXT NOT NULL,
-                isStar INTEGER NOT NULL
-            )");
-        } catch (PDOException $e) {
-            error_log("Erro ao criar tabela: " . $e->getMessage());
-            throw $e; // Re-lança a exceção para tratamento externo
-        }
-    }
+    // private function createTable(): void
+    // {
+    //     try {
+    //         $this->pdo->exec("CREATE TABLE IF NOT EXISTS produtos (
+    //             id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    //             name TEXT NOT NULL,
+    //             description TEXT NOT NULL,
+    //             price REAL NOT NULL,
+    //             type TEXT NOT NULL,
+    //             image TEXT NOT NULL,
+    //             isStar INTEGER NOT NULL
+    //         )");
+    //     } catch (PDOException $e) {
+    //         error_log("Erro ao criar tabela: " . $e->getMessage());
+    //         throw $e; // Re-lança a exceção para tratamento externo
+    //     }
+    // }
 
     public function insert(Product $product): ?int
     {
