@@ -7,7 +7,7 @@
 
 h1, h2, h3, h4, h5, h6 {
   color: #00abfd;
-}
+} 
 
 /* Texto da logo (assumindo que a logo tenha um texto com uma classe específica ou esteja dentro de um elemento específico) */
 .logo { /* Use # se for um ID */

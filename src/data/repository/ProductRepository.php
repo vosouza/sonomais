@@ -141,6 +141,22 @@ class ProductRepository
         }
     }
 
+    public function findAllFeatured(int $limit = 10): array
+    {
+        try {
+            $stmt = $this->pdo->prepare("SELECT * FROM produtos Where produtos.isStar > 0 LIMIT :limit");
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_FUNC, function ($id, $name, $description, $price, $category, $image_url, $isStar) {
+                $urlList = $this->extrairUrls($image_url);
+                return new Product($id, $name, $description, $price, $category, $image_url, $isStar, $urlList);
+            });
+        } catch (PDOException $e) {
+            error_log("Erro ao buscar produtos: " . $e->getMessage());
+            return [];
+        }
+    }
+
     public function findByType(String $productType = "todos",int $limit = 10): array
     {
         try {

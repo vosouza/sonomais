@@ -22,7 +22,8 @@ class HomeViewController implements Controller{
     }
 
     public function processaRequisicao(): void{
-        $product = $this->productRepository->findAll();
+        $product = $this->productRepository->findAllFeatured();
+        $featured = $this->productRepository->getById(3);
         $this->view->show(data: ['products' => $product, 'base' => $this->baseUrl, 'featuredProduct'=>$product[0]]);
     }
 }
