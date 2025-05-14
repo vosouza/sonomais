@@ -4,6 +4,7 @@ namespace Vosouza\Sonomais\model;
 use Vosouza\Sonomais\{
     SonoLogger,
 };
+use Imagick; // Certifique-se de que a classe Imagick esteja disponível
 
 class Product {
 
@@ -91,7 +92,10 @@ class Product {
         $uploadedPaths = [];
         $uploadDir = 'uploads/'; // Defina seu diretório de uploads
         if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0777, true);
+            if (!mkdir($uploadDir, 0777, true)) {
+                SonoLogger::log( 'Erro ao criar o diretório de uploads: ' . $uploadDir);
+                return null;
+            }
         }
 
         $numFiles = count($imageFiles['name']);
@@ -104,20 +108,29 @@ class Product {
                 $destination = $uploadDir . $newFileName;
 
                 if (extension_loaded('imagick')) {
-                    Product::compressImageImagick($originalName, $destination, 70);
-                }else{
+                    if (Product::compressImageImagick($tmpFilePath, $destination, 70)) {
+                        $uploadedPaths[] = $destination;
+                    } else {
+                        SonoLogger::log( 'Erro ao comprimir imagem com Imagick: ' . $originalName . '. Salvando original.');
+                        if (move_uploaded_file($tmpFilePath, $destination)) {
+                            $uploadedPaths[] = $destination;
+                        } else {
+                            SonoLogger::log( 'Erro ao mover o arquivo original (após falha na compressão): ' . $originalName);
+                            return null;
+                        }
+                    }
+                } else {
                     if (move_uploaded_file($tmpFilePath, $destination)) {
                         $uploadedPaths[] = $destination;
                     } else {
-                        // Erro ao mover o arquivo
-                        SonoLogger::log( 'Erro ao mover o arquivo: ' . $originalName . '<br>0');
-                        return null; // Ou você pode optar por continuar e logar os erros
+                        SonoLogger::log( 'Erro ao mover o arquivo (sem Imagick): ' . $originalName);
+                        return null;
                     }
                 }
-                
+
             } elseif ($imageFiles['error'][$i] !== UPLOAD_ERR_NO_FILE) {
                 // Outro erro de upload (além de nenhum arquivo enviado)
-                SonoLogger::log( 'Erro no upload do arquivo ' . $imageFiles['name'][$i] . ': ' . $imageFiles['error'][$i] . '<br>');
+                SonoLogger::log( 'Erro no upload do arquivo ' . $imageFiles['name'][$i] . ': ' . $imageFiles['error'][$i]);
                 return null; // Ou você pode optar por continuar e logar os erros
             }
             // Se UPLOAD_ERR_NO_FILE, o usuário não enviou este arquivo, então ignoramos.
@@ -126,7 +139,7 @@ class Product {
         return $uploadedPaths;
     }
 
-     private static function compressImageImagick(string $source, string $destination, int $quality): bool{
+    private static function compressImageImagick(string $source, string $destination, int $quality): bool{
         try {
             $image = new Imagick($source);
 
@@ -146,8 +159,8 @@ class Product {
             $image->destroy();
             return true;
 
-        } catch (ImagickException $e) {
-            error_log($e->getMessage());
+        } catch (\ImagickException $e) {
+            SonoLogger::log( 'Erro ao processar imagem com Imagick: ' . $e->getMessage() . ' (Arquivo: ' . $source . ')');
             return false;
         }
     }
