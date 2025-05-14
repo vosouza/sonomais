@@ -40,8 +40,9 @@ $dataSource;
 if ($_SERVER['SERVER_NAME'] === 'localhost'){
     $dataSource = new DataSourceTest();
     $baseURL = 'http://localhost:8080/';
-}else if($_SERVER['SERVER_NAME'] === 'https://sonomais.com/') {
+}else if($_SERVER['SERVER_NAME'] === 'sonomais.com') {
     $dataSource = new ProductionDataSource();
+    $baseURL = 'sonomais.com/';
 } else {
     $dataSource = new DataSource();
     $baseURL = 'https://darkgreen-moose-358229.hostingersite.com/';
