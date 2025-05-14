@@ -4,7 +4,6 @@ namespace Vosouza\Sonomais\model;
 use Vosouza\Sonomais\{
     SonoLogger,
 };
-use Imagick; // Certifique-se de que a classe Imagick esteja disponível
 
 class Product {
 
@@ -92,10 +91,7 @@ class Product {
         $uploadedPaths = [];
         $uploadDir = 'uploads/'; // Defina seu diretório de uploads
         if (!is_dir($uploadDir)) {
-            if (!mkdir($uploadDir, 0777, true)) {
-                SonoLogger::log( 'Erro ao criar o diretório de uploads: ' . $uploadDir);
-                return null;
-            }
+            mkdir($uploadDir, 0777, true);
         }
 
         $numFiles = count($imageFiles['name']);
@@ -103,82 +99,26 @@ class Product {
             if ($imageFiles['error'][$i] === UPLOAD_ERR_OK) {
                 $tmpFilePath = $imageFiles['tmp_name'][$i];
                 $originalName = $imageFiles['name'][$i];
+                $tmpName = $imageFiles['name'][$i];
                 $extension = pathinfo($originalName, PATHINFO_EXTENSION);
                 $newFileName = uniqid('product_' . preg_replace('/\s+/', '_', strtolower($productName)) . '_') . '.' . $extension;
                 $destination = $uploadDir . $newFileName;
 
-                if (extension_loaded('imagick')) {
-                    if (Product::compressImageImagick($tmpFilePath, $destination, 70)) {
-                        $uploadedPaths[] = $destination;
-                    } else {
-                        SonoLogger::log( 'Erro ao comprimir imagem com Imagick: ' . $originalName . '. Salvando original.');
-                        if (move_uploaded_file($tmpFilePath, $destination)) {
-                            $uploadedPaths[] = $destination;
-                        } else {
-                            SonoLogger::log( 'Erro ao mover o arquivo original (após falha na compressão): ' . $originalName);
-                            return null;
-                        }
-                    }
+                if (move_uploaded_file($tmpFilePath, $destination)) {
+                    $uploadedPaths[] = $destination;
                 } else {
-                    if (move_uploaded_file($tmpFilePath, $destination)) {
-                        $uploadedPaths[] = $destination;
-                    } else {
-                        SonoLogger::log( 'Erro ao mover o arquivo (sem Imagick): ' . $originalName);
-                        return null;
-                    }
+                    // Erro ao mover o arquivo
+                    SonoLogger::log( 'Erro ao mover o arquivo: ' . $originalName . '<br>0');
+                    return null; // Ou você pode optar por continuar e logar os erros
                 }
-
             } elseif ($imageFiles['error'][$i] !== UPLOAD_ERR_NO_FILE) {
                 // Outro erro de upload (além de nenhum arquivo enviado)
-                SonoLogger::log( 'Erro no upload do arquivo ' . $imageFiles['name'][$i] . ': ' . $imageFiles['error'][$i]);
+                SonoLogger::log( 'Erro no upload do arquivo ' . $imageFiles['name'][$i] . ': ' . $imageFiles['error'][$i] . '<br>');
                 return null; // Ou você pode optar por continuar e logar os erros
             }
             // Se UPLOAD_ERR_NO_FILE, o usuário não enviou este arquivo, então ignoramos.
         }
 
         return $uploadedPaths;
-    }
-
-    private static function compressImageImagick(string $source, string $destination, int $quality): bool{
-        try {
-            $image = new Imagick($source);
-
-            // Remover metadados (opcional, mas ajuda a reduzir o tamanho)
-            $image->stripImage();
-
-            // Definir a qualidade da compressão (para JPEG e outros formatos com suporte)
-            $image->setImageCompressionQuality($quality);
-
-            // Otimizar a imagem
-            $image->optimizeImageLayers();
-            $image->setImageOptimized(true);
-
-            // Salvar a imagem no destino
-            $image->writeImage($destination);
-
-            $image->destroy();
-            return true;
-
-        } catch (\ImagickException $e) {
-            SonoLogger::log( 'Erro ao processar imagem com Imagick: ' . $e->getMessage() . ' (Arquivo: ' . $source . ')');
-            return false;
-        }
-    }
-
-    private static function generateUniqueImageName(string $originalName, string $productName): string
-    {
-        $extension = pathinfo($originalName, PATHINFO_EXTENSION);
-        $nameWithoutExtension = pathinfo($originalName, PATHINFO_FILENAME);
-
-        // Remove espaços e converte para lowercase
-        $sanitizedProductName = strtolower(str_replace(' ', '-', $productName));
-
-        // Remove caracteres especiais (mantém letras, números e hífens)
-        $sanitizedProductName = preg_replace('/[^a-z0-9-]+/', '', $sanitizedProductName);
-
-        // Adiciona a data e hora do upload para garantir a unicidade
-        $timestamp = date('YmdHis');
-
-        return $sanitizedProductName . '-' . $timestamp . '.' . $extension;
     }
 }
