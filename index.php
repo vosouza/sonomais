@@ -19,7 +19,7 @@ use Vosouza\Sonomais\{
 };
 use Vosouza\Sonomais\data\{
     DataSource,
-    SQLiteDataSource,
+    ProductionDataSource,
     DataSourceTest,
 };
 
@@ -40,7 +40,9 @@ $dataSource;
 if ($_SERVER['SERVER_NAME'] === 'localhost'){
     $dataSource = new DataSourceTest();
     $baseURL = 'http://localhost:8080/';
-}else{
+}else if($_SERVER['SERVER_NAME'] === 'https://sonomais.com/') {
+    $dataSource = new ProductionDataSource();
+} else {
     $dataSource = new DataSource();
     $baseURL = 'https://darkgreen-moose-358229.hostingersite.com/';
 }

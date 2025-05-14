@@ -22,13 +22,13 @@ class UserRepository
 
     // private function createTableIfNotExists(): void
     // {
-    //     $sql = "CREATE TABLE IF NOT EXISTS {$this->tableName} (
-    //         id INT AUTO_INCREMENT PRIMARY KEY,
-    //         name TEXT NOT NULL,
-    //         email TEXT NOT NULL,
-    //         password TEXT NOT NULL,
-    //         INDEX (id) -- Adicionar um índice para a coluna id_text para buscas rápidas
-    //     )";
+        // $sql = "CREATE TABLE IF NOT EXISTS {$this->tableName} (
+        //     id INT AUTO_INCREMENT PRIMARY KEY,
+        //     name TEXT NOT NULL,
+        //     email TEXT NOT NULL,
+        //     password TEXT NOT NULL,
+        //     INDEX (id) -- Adicionar um índice para a coluna id_text para buscas rápidas
+        // )";
     //     $this->pdo->exec($sql);
     // }
 
