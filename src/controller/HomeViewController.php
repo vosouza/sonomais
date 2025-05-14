@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Vosouza\Sonomais\controller;
 
 use Vosouza\Sonomais\data\repository\ProductRepository;
+use Vosouza\Sonomais\SessionRegistry;
 use Vosouza\Sonomais\view\ViewInterface;
 
 class HomeViewController implements Controller{
@@ -24,6 +25,11 @@ class HomeViewController implements Controller{
     public function processaRequisicao(): void{
         $product = $this->productRepository->findAllFeatured();
         $featured = $this->productRepository->getById(3);
-        $this->view->show(data: ['products' => $product, 'base' => $this->baseUrl, 'featuredProduct'=>$product[0]]);
+        $this->view->show(data: [
+            'products' => $product,
+            'base' => $this->baseUrl,
+            'featuredProduct'=>$product[0],
+            'appversion'=>SessionRegistry::$appVersion
+        ]);
     }
 }

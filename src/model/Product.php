@@ -99,19 +99,22 @@ class Product {
             if ($imageFiles['error'][$i] === UPLOAD_ERR_OK) {
                 $tmpFilePath = $imageFiles['tmp_name'][$i];
                 $originalName = $imageFiles['name'][$i];
-                $tmpName = $imageFiles['name'][$i];
-                $uniqueName = self::generateUniqueImageName($originalName, $productName);
                 $extension = pathinfo($originalName, PATHINFO_EXTENSION);
                 $newFileName = uniqid('product_' . preg_replace('/\s+/', '_', strtolower($productName)) . '_') . '.' . $extension;
                 $destination = $uploadDir . $newFileName;
 
-                if (move_uploaded_file($tmpFilePath, $destination)) {
-                    $uploadedPaths[] = $destination;
-                } else {
-                    // Erro ao mover o arquivo
-                    SonoLogger::log( 'Erro ao mover o arquivo: ' . $originalName . '<br>0');
-                    return null; // Ou você pode optar por continuar e logar os erros
+                if (extension_loaded('imagick')) {
+                    Product::compressImageImagick($originalName, $destination, 70);
+                }else{
+                    if (move_uploaded_file($tmpFilePath, $destination)) {
+                        $uploadedPaths[] = $destination;
+                    } else {
+                        // Erro ao mover o arquivo
+                        SonoLogger::log( 'Erro ao mover o arquivo: ' . $originalName . '<br>0');
+                        return null; // Ou você pode optar por continuar e logar os erros
+                    }
                 }
+                
             } elseif ($imageFiles['error'][$i] !== UPLOAD_ERR_NO_FILE) {
                 // Outro erro de upload (além de nenhum arquivo enviado)
                 SonoLogger::log( 'Erro no upload do arquivo ' . $imageFiles['name'][$i] . ': ' . $imageFiles['error'][$i] . '<br>');
@@ -121,6 +124,32 @@ class Product {
         }
 
         return $uploadedPaths;
+    }
+
+     private static function compressImageImagick(string $source, string $destination, int $quality): bool{
+        try {
+            $image = new Imagick($source);
+
+            // Remover metadados (opcional, mas ajuda a reduzir o tamanho)
+            $image->stripImage();
+
+            // Definir a qualidade da compressão (para JPEG e outros formatos com suporte)
+            $image->setImageCompressionQuality($quality);
+
+            // Otimizar a imagem
+            $image->optimizeImageLayers();
+            $image->setImageOptimized(true);
+
+            // Salvar a imagem no destino
+            $image->writeImage($destination);
+
+            $image->destroy();
+            return true;
+
+        } catch (ImagickException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
     }
 
     private static function generateUniqueImageName(string $originalName, string $productName): string
@@ -139,6 +168,4 @@ class Product {
 
         return $sanitizedProductName . '-' . $timestamp . '.' . $extension;
     }
-
-
 }
