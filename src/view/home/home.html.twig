@@ -36,7 +36,7 @@
                 <div class="featured-image">
                     {% if featuredProduct.imageList is not empty %}
                         <a href="{{ "/details?productid=" ~ featuredProduct.id }}" data-lightbox="featured-product">
-                            <img src="{{ featuredProduct.imageList[0] }}" alt="{{ featuredProduct.name }}">
+                            <img src="/{{ featuredProduct.imageList[0] }}" alt="{{ featuredProduct.name }}">
                         </a>
                     {% else %}
                         <img src="/images/placeholder-featured.png" alt="Imagem do produto em destaque não disponível">
