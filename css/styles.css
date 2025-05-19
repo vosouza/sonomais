@@ -12,6 +12,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Texto da logo (assumindo que a logo tenha um texto com uma classe específica ou esteja dentro de um elemento específico) */
 .logo { /* Use # se for um ID */
   color: #00abfd;
+  text-decoration: none;
 }
 
 /* Texto do menu (assumindo que os links do menu estejam dentro de um elemento <nav> e sejam links <a>) */
@@ -168,8 +169,8 @@ body {
 }
 
 .product-item img {
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 300px;
     border-radius: 5px;
 }
 

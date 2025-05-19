@@ -6,7 +6,15 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Sono+</title>
     <link rel="stylesheet" href="/css/styles.css?v={{appversion}}">
+    {% if products.imageList is not empty %}
+        {% for product in products %}
+            <link rel="preload" href="{{ product.imageList[0] }}" as="image">
+        {% endfor %}
+    {% endif %}
     <script defer src="/scripts/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.3/simple-lightbox.min.js" integrity="sha512-Vtot07oogPy4e0JzAfUgyvia0fATgR1PWWNG89EeQgPXmaIhjGQIFijUVxRn0TScCMCH57Y7eJSixmYYDJkJ1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.3/simple-lightbox.css" integrity="sha512-5gTxhbmgsOKfPP2+TeKslkMmyxF0Cmyr2YrJrfaXD/ChLHavFXGzDDG9ZiOca1P/2/5nXuujkB2BWymVKu1pPg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 <body>
     <header>
@@ -114,5 +122,16 @@
             <p class="copyright">&copy; 2024 Dawn - Todos os direitos reservados.</p>
         </div>
     </footer>
+    <script>
+        // Adicionar funcionalidade ao botão WhatsApp (substitua o link pelo seu número)
+        const saudacao = "Olá! Gostaria de mais informações sobre o produto: ";
+        const mensagem = encodeURIComponent(saudacao + "{{product.name}}");
+        const whatsappButton = document.querySelector('.talk-button');
+        if (whatsappButton) {
+            whatsappButton.addEventListener('click', () => {
+                window.open(`https://wa.me/5583986801505?text=${mensagem}`, '_blank');
+            });
+        }
+    </script>
 </body>
 </html>

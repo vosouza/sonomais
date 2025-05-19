@@ -28,7 +28,13 @@ class ProductRepository
             return !empty($url);
         });
         $listaDeUrlsFinal = [];
-        $baseUrl = $_SERVER['SERVER_NAME'] === 'localhost' ? 'http://localhost:8080/' : 'https://darkgreen-moose-358229.hostingersite.com/';
+        if ($_SERVER['SERVER_NAME'] === 'localhost'){
+            $baseUrl = $_SERVER['SERVER_NAME'] === 'http://localhost:8080/';
+        }else if($_SERVER['SERVER_NAME'] === 'sonomais.com') {
+            $baseUrl = $_SERVER['SERVER_NAME'] === 'sonomais.com';
+        } else {
+            $baseUrl = $_SERVER['SERVER_NAME'] === 'https://darkgreen-moose-358229.hostingersite.com/';
+        }
         foreach ($listaDeUrlsFiltrada as $url) {
             $listaDeUrlsFinal[] = $baseUrl . $url;
         }

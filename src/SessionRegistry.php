@@ -6,7 +6,7 @@ namespace Vosouza\Sonomais;
 
 class SessionRegistry
 {
-    public static String $appVersion = "1.0.0";
+    public static String $appVersion = "1.0.1";
     private static ?array $session = null;
     private static String $isLoggedIn = "isloggedin";
     private static String $userId = "userid";
@@ -52,10 +52,3 @@ class SessionRegistry
         self::$session[self::$userId] = $value;
     }
 }
-
-// No seu index.php:
-SessionRegistry::initialize();
-
-// Em um controlador:
-$userId = SessionRegistry::get('user_id');
-SessionRegistry::set('loggedin', true);

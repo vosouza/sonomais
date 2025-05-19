@@ -1,0 +1,91 @@
+.product-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out;
+}
+
+.product-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-item img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 1 / 1; /* Manter a proporção quadrada da imagem */
+  object-fit: cover; /* Cobrir o espaço sem distorcer */
+}
+
+.product-item a {
+  display: block;
+  padding: 15px;
+  text-align: center;
+}
+
+.product-item a p {
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.product-item .price {
+  color: #28a745; /* Cor verde para o preço */
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.product-item .short-description {
+  color: #6c757d; /* Cor cinza para a descrição */
+  font-size: 0.9em;
+  padding: 0 15px 15px;
+  text-align: center;
+}
+
+.product-item .featured {
+  background-color: #ffc107; /* Cor amarela para destaque */
+  color: #212529;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10; /* Garante que o badge fique acima da imagem */
+}
+
+/* Estilos para o grid de produtos (se você estiver usando CSS Grid) */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Cria colunas responsivas com largura mínima de 250px */
+  gap: 20px; /* Espaçamento entre os itens do grid */
+}
+
+/* Adaptações para telas menores */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr)); /* Uma coluna por item em telas menores */
+  }
+
+  .product-item {
+    margin-bottom: 15px;
+  }
+
+  .product-item a p {
+    font-size: 1em;
+  }
+
+  .product-item .price {
+    font-size: 1.1em;
+  }
+
+  .product-item .short-description {
+    font-size: 0.85em;
+  }
+}

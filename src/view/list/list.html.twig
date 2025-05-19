@@ -6,7 +6,10 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Sono+ - {{ listName }}</title>
     <link rel="stylesheet" href="{{ base }}/css/styles.css">
-    <script defer src="{{ base }}/scripts/script.js"></script>
+    <link rel="stylesheet" href="{{ base }}/css/listing.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.3/simple-lightbox.css" integrity="sha512-5gTxhbmgsOKfPP2+TeKslkMmyxF0Cmyr2YrJrfaXD/ChLHavFXGzDDG9ZiOca1P/2/5nXuujkB2BWymVKu1pPg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.3/simple-lightbox.min.js" integrity="sha512-Vtot07oogPy4e0JzAfUgyvia0fATgR1PWWNG89EeQgPXmaIhjGQIFijUVxRn0TScCMCH57Y7eJSixmYYDJkJ1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="/scripts/script.js"></script>
     <style>
         .container-title h2 {
             text-align: center;
@@ -48,6 +51,8 @@
                             <a href="{{ base }}details?productid={{ product.id }}">
                                 <p>{{ product.name }}</p>
                             </a>
+                            <p class="price">R$ {{ product.price|number_format(2, ',', '.') }}</p>
+                            <p class="short-description">{{ product.description|slice(0, 50) }}...</p>
                         </div>
                     {% endfor %}
                 {% else %}
