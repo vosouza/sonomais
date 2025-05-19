@@ -35,11 +35,11 @@
             <div class="featured-grid">
                 <div class="featured-image">
                     {% if featuredProduct.imageList is not empty %}
-                        <a href="{{ base ~ "details?productid=" ~ featuredProduct.id }}" data-lightbox="featured-product">
+                        <a href="{{ "/details?productid=" ~ featuredProduct.id }}" data-lightbox="featured-product">
                             <img src="{{ featuredProduct.imageList[0] }}" alt="{{ featuredProduct.name }}">
                         </a>
                     {% else %}
-                        <img src="{{ base }}/images/placeholder-featured.png" alt="Imagem do produto em destaque não disponível">
+                        <img src="/images/placeholder-featured.png" alt="Imagem do produto em destaque não disponível">
                     {% endif %}
                 </div>
                 <div class="featured-content">
@@ -64,7 +64,7 @@
                 {% for product in products %}
                     <div class="product-item">
                         
-                        <a href="{{ base ~ "details?productid=" ~ product.id }}">
+                        <a href="{{ "/details?productid=" ~ product.id }}">
                         <img src={{product.imageList[0]}} alt={{product.name}}>
                         </a>
                     </div>

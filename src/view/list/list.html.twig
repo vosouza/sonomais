@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Sono+ - {{ listName }}</title>
-    <link rel="stylesheet" href="{{ base }}/css/styles.css">
-    <link rel="stylesheet" href="{{ base }}/css/listing.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/listing.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.3/simple-lightbox.css" integrity="sha512-5gTxhbmgsOKfPP2+TeKslkMmyxF0Cmyr2YrJrfaXD/ChLHavFXGzDDG9ZiOca1P/2/5nXuujkB2BWymVKu1pPg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.3/simple-lightbox.min.js" integrity="sha512-Vtot07oogPy4e0JzAfUgyvia0fATgR1PWWNG89EeQgPXmaIhjGQIFijUVxRn0TScCMCH57Y7eJSixmYYDJkJ1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script defer src="/scripts/script.js"></script>
@@ -46,9 +46,9 @@
                             {% if product.imageList is not empty %}
                                 <img src="{{ product.imageList[0] }}" alt="{{ product.name }}">
                             {% else %}
-                                <img src="{{ base }}/images/placeholder.png" alt="Imagem não disponível">
+                                <img src="/images/placeholder.png" alt="Imagem não disponível">
                             {% endif %}
-                            <a href="{{ base }}details?productid={{ product.id }}">
+                            <a href="/details?productid={{ product.id }}">
                                 <p>{{ product.name }}</p>
                             </a>
                             <p class="price">R$ {{ product.price|number_format(2, ',', '.') }}</p>
