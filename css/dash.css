@@ -1,165 +1,505 @@
+/* --- Variáveis CSS para Cores e Propriedades Comuns --- */
+:root {
+    --primary-color: #00abfd; /* Azul vibrante */
+    --secondary-color: #ffcc00; /* Amarelo de destaque */
+    --dark-bg: #222; /* Fundo escuro da sidebar */
+    --light-bg: #f8f9fa; /* Fundo claro do conteúdo principal */
+    --border-color: #e0e0e0;
+    --text-color: #333;
+    --light-text-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --info-color: #007bff;
+}
+
+/* --- Reset Básico e Fontes --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  color: #00abfd;
-}
-
-/* Texto da logo (assumindo que a logo tenha um texto com uma classe específica ou esteja dentro de um elemento específico) */
-.logo-text,
-#logo-text { /* Use # se for um ID */
-  color: #00abfd;
-}
-
-/* Texto do menu (assumindo que os links do menu estejam dentro de um elemento <nav> e sejam links <a>) */
-nav a {
-  color: #00abfd;
-}
-
-/* Títulos do footer (assumindo que os títulos do footer estejam dentro de elementos h3 dentro de uma classe .footer-section) */
-footer .footer-section h3 {
-  color: #00abfd;
-}
-
-/* Se os títulos do footer tiverem outra estrutura, ajuste o seletor CSS conforme necessário */
-footer h4 { /* Exemplo para títulos h4 no footer */
-  color: #00abfd;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte moderna e legível */
 }
 
 body {
-    background-color: #fff;
-    color: #333;
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    line-height: 1.6;
 }
-  
-  .dashboard-container {
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-color);
+}
+
+/* --- Container Principal do Dashboard --- */
+.dashboard-container {
     display: flex;
-    height: 100vh;
-  }
-  
-  .sidebar {
-    width: 220px;
-    background-color: #222;
+    flex-direction: column; /* Em mobile, a sidebar e o conteúdo principal se empilham */
+    min-height: 100vh;
+}
+
+/* --- Sidebar (Menu Lateral) --- */
+.sidebar {
+    width: 100%; /* Ocupa a largura total em mobile */
+    height: auto; /* Altura ajustável ao conteúdo */
+    background-color: var(--dark-bg);
     color: white;
-    padding: 20px;
-    height: 100vh;
-  }
-  
-  .sidebar h2 {
-    margin-bottom: 30px;
-  }
-  
-  .sidebar ul {
+    padding: 15px 20px; /* Padding ajustado para mobile */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+    position: relative; /* Para posicionar o botão de toggle se usar */
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+    font-size: 1.5em; /* Menor em mobile */
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.sidebar ul {
     list-style: none;
     padding: 0;
-  }
-  
-  .sidebar ul li {
-    margin: 15px 0;
-  }
-  
-  .sidebar ul li a {
+    display: flex; /* Para alinhar itens horizontalmente em mobile se preferir */
+    flex-wrap: wrap; /* Permite quebrar linha se muitos itens */
+    justify-content: center; /* Centraliza os itens do menu */
+    gap: 10px; /* Espaçamento entre os itens do menu */
+}
+
+.sidebar ul li {
+    margin: 5px 0; /* Margem reduzida */
+}
+
+.sidebar ul li a {
     color: white;
     text-decoration: none;
-    transition: 0.3s;
-  }
-  
-  .sidebar ul li a:hover {
-    color: #ffcc00;
-  }
-  
-  .main-content {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 1em; /* Tamanho de fonte padrão */
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--secondary-color);
+}
+
+/* --- Conteúdo Principal (Main Content) --- */
+.main-content {
     flex: 1;
-    padding: 30px;
+    padding: 20px; /* Padding ajustado para mobile */
     overflow-y: auto;
-  }
-  
-  h1, h2 {
+    background-color: white;
+}
+
+h1 {
+    font-size: 1.8em; /* Menor em mobile */
     margin-bottom: 20px;
-  }
-  
-  .product-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    border-bottom: 1px solid var(--border-color); /* Borda mais fina */
+    padding-bottom: 10px;
+    text-align: center; /* Centraliza em mobile */
+}
+
+h2 {
+    font-size: 1.4em; /* Menor em mobile */
+    margin-top: 25px;
+    margin-bottom: 15px;
+    text-align: center; /* Centraliza em mobile */
+}
+
+/* --- Formulário de Cadastro de Produto --- */
+.product-form {
+    display: flex; /* Usamos flexbox para controlar o empilhamento em mobile */
+    flex-direction: column; /* Campos empilhados em mobile */
+    gap: 15px; /* Espaçamento entre os campos */
     background: white;
     padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 40px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.05);
-  }
-  
-  .form-group {
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.form-group {
     display: flex;
     flex-direction: column;
-  }
-  
-  .form-group.checkbox {
-    grid-column: 1 / -1;
-  }
-  
-  input[type="text"],
-  input[type="number"],
-  input[type="file"],
-  select,
-  textarea {
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--text-color);
+    font-size: 0.95em;
+}
+
+.form-group.checkbox {
+    /* Não precisa de grid-column em mobile-first, já é flex-direction: column */
+    display: flex;
+    align-items: center;
+}
+
+.form-group.checkbox label {
+    margin-left: 8px;
+    margin-bottom: 0;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"],
+select,
+textarea {
     padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
     margin-top: 5px;
-  }
-  
-  button[type="submit"] {
-    grid-column: 1 / -1;
+    font-size: 0.95em;
+    background-color: #fcfcfc;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="file"]:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 171, 253, 0.2);
+    outline: none;
+}
+
+button[type="submit"] {
     padding: 12px;
-    background-color: #222;
+    background-color: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .product-list {
+    margin-top: 15px;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #008cd4;
+    transform: translateY(-2px);
+}
+
+/* --- Barra de Pesquisa --- */
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    font-size: 0.95em;
+    background-color: #fcfcfc;
+}
+
+/* --- Listagem de Produtos --- */
+.product-list {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .product-item {
+    flex-direction: column; /* Itens empilhados em mobile */
+    gap: 15px;
+}
+
+.product-item {
     display: flex;
-    gap: 20px;
+    flex-direction: column; /* Detalhes e botões empilhados */
     background: white;
     padding: 15px;
-    border-radius: 10px;
-    align-items: flex-start;
-    box-shadow: 0 0 10px rgba(0,0,0,0.05);
-  }
-  
-  .product-item img {
-    width: 100px;
-    height: 100px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease-in-out;
+}
+
+.product-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+}
+
+.product-image-details {
+    display: flex;
+    flex-direction: column; /* Imagem e detalhes empilhados em mobile */
+    align-items: center; /* Centraliza a imagem e os detalhes */
+    margin-bottom: 15px;
+    text-align: center; /* Centraliza o texto dos detalhes */
+}
+
+.product-image-details a img {
+    max-width: 100px; /* Garante que a imagem não seja maior que 100px de largura */
+    max-height: 100px; /* Garante que a imagem não seja maior que 100px de altura */
+    width: 100%; /* Permite que ela encolha se o pai for menor */
+    height: auto; /* Mantém a proporção da imagem */
     object-fit: cover;
     border-radius: 5px;
-  }
-  
-  .product-item h3 {
+    margin-bottom: 10px; /* Espaço entre imagem e detalhes */
+    border: 1px solid #eee;
+    flex-shrink: 0;
+}
+
+.product-details {
+    flex-grow: 1;
+    line-height: 1.4;
+    width: 100%; /* Ocupa toda a largura disponível */
+}
+
+.product-details h3 {
     margin-top: 0;
-  }
-  
-  .search-bar {
-    margin-bottom: 20px;
-  }
-  
-  .search-bar input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-  }
-  
+    margin-bottom: 8px;
+    font-size: 1.15em; /* Um pouco menor */
+    color: var(--primary-color);
+}
+
+.product-details p {
+    margin-bottom: 4px;
+    font-size: 0.9em; /* Um pouco menor */
+    color: var(--light-text-color);
+}
+
+.product-details strong {
+    color: var(--text-color);
+}
+
+.product-buttons{ 
+    flex-direction: row;
+    display: flex;
+}
+
+/* Badge de Destaque */
+.status-badge {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.7em;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    display: inline-block; /* Para garantir que o padding funcione */
+    margin-left: 5px; /* Espaçamento do texto "Destaque: Sim" */
+}
+
+.status-star {
+    background-color: var(--success-color);
+}
+
+.status-no-star {
+    background-color: var(--danger-color);
+}
+
+/* Botões de Ação do Produto */
+.product-actions {
+    display: flex;
+    flex-direction: column; /* Botões empilhados em mobile */
+    gap: 8px;
+    margin-top: 15px;
+    width: 100%; /* Ocupa largura total */
+}
+
+.product-actions .inline-form {
+    margin: 0;
+    display: contents; /* Isso faz com que os botões se comportem como se fossem filhos diretos do flex */
+}
+.product-buttons form{
+  margin: 8px;
+}
+
+.edit-button,
+.delete-button {
+    padding: 10px 15px;
+    font-size: 0.9em;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    width: 100%; /* Botões ocupam a largura total em mobile */
+}
+
+.edit-button {
+    background-color: var(--info-color);
+    color: white;
+}
+.edit-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.delete-button {
+    background-color: var(--danger-color);
+    color: white;
+}
+.delete-button:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+/* Imagens Adicionais */
+.additional-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border-color);
+    justify-content: center; /* Centraliza as miniaturas em mobile */
+}
+
+.additional-images p strong {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    flex-basis: 100%; /* Ocupa toda a largura antes das imagens */
+    font-size: 0.9em;
+    text-align: center; /* Centraliza o título "Outras Imagens" */
+}
+
+.additional-images img {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    cursor: zoom-in;
+    transition: border-color 0.2s ease;
+}
+
+.additional-images img:hover {
+    border-color: var(--primary-color);
+}
+
+/* --- Media Queries para Telas Maiores (Tablets e Desktops) --- */
+
+/* Tablet e Telas Médias */
+@media (min-width: 768px) {
+    .dashboard-container {
+        flex-direction: row; /* Sidebar e conteúdo principal lado a lado */
+    }
+
+    .sidebar {
+        width: 250px; /* Largura fixa para a sidebar */
+        height: 100vh; /* Ocupa a altura total */
+        position: sticky; /* Fixa a sidebar na tela */
+        top: 0; /* Alinha ao topo */
+        box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+    }
+
+    .sidebar ul {
+        flex-direction: column; /* Itens do menu empilhados novamente */
+        justify-content: flex-start;
+        gap: 0; /* Remove gap horizontal */
+    }
+
+    .sidebar ul li {
+        margin: 15px 0; /* Margem vertical padrão */
+    }
+
+    .main-content {
+        padding: 30px 40px; /* Padding maior */
+    }
+
+    h1, h2 {
+        text-align: left; /* Alinha títulos à esquerda */
+    }
+
+    .product-form {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas para o formulário */
+        gap: 25px;
+        padding: 30px;
+    }
+
+    button[type="submit"] {
+        width: auto; /* Botão volta ao tamanho automático */
+        margin-left: auto; /* Opcional: Alinha o botão à direita */
+        margin-right: auto; /* Opcional: Centraliza o botão */
+    }
+
+    .product-list {
+        gap: 20px;
+    }
+
+    .product-item {
+        flex-direction: column; /* Imagem e detalhes lado a lado */
+        align-items: center;
+        justify-content: space-between; /* Espaço entre os blocos */
+        padding: 20px 25px;
+    }
+
+    .product-image-details {
+        flex-direction: row; /* Imagem e detalhes voltam a ser linha */
+        text-align: left; /* Alinha texto à esquerda */
+        margin-bottom: 0;
+        align-items: flex-start; /* Alinha no topo */
+    }
+
+    .product-image-details a img {
+        margin-bottom: 0; /* Remove margem vertical da imagem */
+        margin-right: 25px; /* Espaço entre imagem e detalhes */
+        width: 100px;
+        height: 100px;
+    }
+
+    .product-details {
+        margin-right: 20px; /* Espaçamento entre detalhes e botões */
+    }
+
+    .product-actions {
+        flex-direction: row; /* Botões lado a lado */
+        width: auto; /* Largura automática */
+        margin-top: 0;
+        justify-content: flex-end; /* Alinha à direita */
+        gap: 10px;
+    }
+
+    .edit-button,
+    .delete-button {
+        width: auto; /* Botões voltam ao tamanho automático */
+    }
+
+    .additional-images {
+        flex-basis: 100%; /* Ocupa a largura total abaixo do item principal */
+        margin-top: 15px; /* Volta a ter margem superior para o bloco */
+        padding-top: 10px;
+        border-top: 1px dashed var(--border-color);
+        justify-content: flex-start; /* Alinha as miniaturas à esquerda */
+    }
+
+    .additional-images p strong {
+        display: none; /* Oculta o título em desktop */
+    }
+}
+
+/* Telas de Desktop (Larguras Maiores) */
+@media (min-width: 1024px) {
+    .main-content {
+        padding: 40px 60px; /* Mais padding em telas grandes */
+    }
+
+    .product-form {
+        grid-template-columns: repeat(3, 1fr); /* 3 colunas para formulário */
+        gap: 30px;
+    }
+
+    .product-item {
+        padding: 25px 30px;
+    }
+
+    .product-image-details a img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .additional-images {
+        gap: 12px;
+    }
+
+    .additional-images img {
+        width: 70px;
+        height: 70px;
+    }
+}

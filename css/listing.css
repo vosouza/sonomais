@@ -15,6 +15,7 @@
 
 .product-item img {
   width: 100%;
+  height: auto;
   display: block;
   aspect-ratio: 1 / 1; /* Manter a proporção quadrada da imagem */
   object-fit: cover; /* Cobrir o espaço sem distorcer */

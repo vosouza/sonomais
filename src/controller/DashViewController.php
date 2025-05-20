@@ -11,6 +11,7 @@ use Vosouza\Sonomais\model\{
 };
 use Vosouza\Sonomais\{
     SonoLogger,
+    SessionRegistry
 };
 
 class DashViewController implements Controller{
@@ -99,9 +100,9 @@ class DashViewController implements Controller{
         if($this->editProduct == null){
             $products = $this->productRepository->findAll();
             SonoLogger::log(var_export($products, true));
-            $this->view->show(["products"=> $products]);
+            $this->view->show(["products"=> $products, "cssversion"=>SessionRegistry::$appVersion]);
         }else{
-            $this->view->show(["product"=> $this->editProduct]);
+            $this->view->show(["product"=> $this->editProduct, "cssversion"=>SessionRegistry::$appVersion]);
         }
     }
 

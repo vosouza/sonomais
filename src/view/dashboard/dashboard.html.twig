@@ -4,110 +4,11 @@
      <meta charset="UTF-8" />
      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
      <title>Dashboard - Produtos</title>
-     <link rel="stylesheet" href="../css/dash.css" />
+     <link rel="stylesheet" href="../css/dash.css?version={{cssversion}}" />
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.3/simple-lightbox.css" integrity="sha512-5gTxhbmgsOKfPP2+TeKslkMmyxF0Cmyr2YrJrfaXD/ChLHavFXGzDDG9ZiOca1P/2/5nXuujkB2BWymVKu1pPg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
      <script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.14.3/simple-lightbox.min.js" integrity="sha512-Vtot07oogPy4e0JzAfUgyvia0fATgR1PWWNG89EeQgPXmaIhjGQIFijUVxRn0TScCMCH57Y7eJSixmYYDJkJ1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
      <script defer src="../scripts/dash.js"></script>
-     <style>
-         .product-item {
-             display: flex;
-             border: 1px solid #ccc;
-             margin-bottom: 10px;
-             padding: 10px;
-             align-items: flex-start; /* Alinha os itens no topo */
-             flex-direction: column; /* Organiza os elementos em coluna */
-         }
-
-         .product-image-details {
-             display: flex; /* Alinha a imagem e os detalhes na mesma linha */
-             align-items: flex-start; /* Alinha imagem e detalhes no topo */
-             margin-bottom: 10px; /* Espaço abaixo da linha de imagem e detalhes */
-         }
-
-         .product-image-details > img {
-             max-width: 100px;
-             height: auto;
-             margin-right: 15px;
-         }
-
-         .product-details {
-            /* display: flex; Remova esta linha */
-            flex-grow: 1;
-            align-items: center; /* Você pode querer remover isso também, dependendo do alinhamento vertical desejado */
-            margin-bottom: 10px;
-        }
-
-        .product-details h3 {
-            margin-right: 15px;
-            margin-bottom: 5px; /* Adicione um pouco de espaço abaixo do título */
-        }
-
-        .product-details p {
-            margin-right: 15px;
-            margin-bottom: 5px; /* Adicione um pouco de espaço abaixo de cada parágrafo */
-        }
-
-        .product-details strong {
-            margin-right: 5px;
-        }
-
-         .product-details strong {
-             margin-right: 5px;
-         }
-
-         .product-buttons {
-             display: flex; /* Alinha os botões na mesma linha */
-             gap: 5px;
-             margin-bottom: 10px; /* Espaço abaixo dos botões */
-         }
-
-         .delete-button {
-             background-color: #f44336;
-             color: white;
-             border: none;
-             padding: 8px 12px;
-             text-align: center;
-             text-decoration: none;
-             font-size: 14px;
-             cursor: pointer;
-             border-radius: 4px;
-         }
-
-         .delete-button:hover {
-             background-color: #d32f2f;
-         }
-         .edit-button {
-             background-color: #4CAF50; /* Verde */
-             color: white;
-             border: none;
-             padding: 8px 12px;
-             text-align: center;
-             text-decoration: none;
-             font-size: 14px;
-             cursor: pointer;
-             border-radius: 4px;
-             margin-left: 5px;
-         }
-
-         .edit-button:hover {
-             background-color: #45a049;
-         }
-
-         .additional-images {
-             display: flex;
-             flex-wrap: wrap;
-             gap: 10px;
-             margin-top: 10px; /* Espaço acima das imagens adicionais */
-         }
-
-         .additional-images img {
-             max-width: 80px;
-             height: auto;
-             border: 1px solid #eee;
-             padding: 5px;
-             box-sizing: border-box;
-         }
-     </style>
+     
  </head>
  <body>
      <div class="dashboard-container">

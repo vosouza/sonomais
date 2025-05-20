@@ -6,7 +6,7 @@ namespace Vosouza\Sonomais;
 
 class SessionRegistry
 {
-    public static String $appVersion = "1.0.2";
+    public static String $appVersion = "1.0.4";
     private static ?array $session = null;
     private static String $isLoggedIn = "isloggedin";
     private static String $userId = "userid";
