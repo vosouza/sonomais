@@ -43,9 +43,9 @@ class DashViewController implements Controller{
 
     public function editProduct(){
         $this->view->renderEdit();
-
-        $product = Product::fromPost();
-
+        $product = Product::editFromPost();
+        
+        
         if($product == null){
             $productId = filter_input(INPUT_GET, "productid", FILTER_VALIDATE_INT);
             $product = $this->productRepository->getById($productId);
@@ -55,8 +55,21 @@ class DashViewController implements Controller{
                 SonoLogger::log( "produto nao encontrado");
             }
         }else{
-            $this->productRepository->update(product: $product, id: $product->id );
-            $product = $this->productRepository->getById(id: $product->id);
+            $dbProduct = $this->productRepository->getById(id: $product->id);
+
+            $newProduct = new  Product(
+                    $product->id,
+                    $product->name == '' ? $dbProduct->name : $product->name,
+                    $product->description == '' ? $dbProduct->description : $product->description,
+                    $product->price == 0 ? $dbProduct->price : $product->price,
+                    $product->type == '' ? $dbProduct->type : $product->type,
+                    $product->image == '' ? $dbProduct->image : $product->image ,
+                    $product->isStar,
+                    []
+                );
+
+            $this->productRepository->update(product: $newProduct, id: $product->id );
+            
             if ($product != null) {
                 $this->editProduct = $product;
             }else{

@@ -87,6 +87,46 @@ class Product {
         );
     }
 
+    public static function editFromPost(): ?Product {
+        var_dump($_POST);
+        var_dump($_FILES); // Importante para entender a estrutura de $_FILES
+
+        if (
+            $_SERVER['REQUEST_METHOD'] != 'POST'
+        ) {
+            SonoLogger::log( 'Não é post');
+            return null; // Dados incompletos
+        }
+
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+        $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
+        $price = filter_input(INPUT_POST, 'price', FILTER_VALIDATE_FLOAT);
+        $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
+
+        $isStar = isset($_POST['isStar']) ? filter_var($_POST['isStar'], FILTER_VALIDATE_BOOLEAN) : false;
+
+        if(isset($_FILES['image'])){
+            $imagePaths = self::uploadImages($_FILES['image'], $name);
+            if ($imagePaths === null || empty($imagePaths)) {
+                SonoLogger::log( 'Sem Imagens para editar');
+            }else{
+                $allImagePaths = implode(';', $imagePaths);
+            }
+        }
+
+        return new Product(
+            $id ?? 0,
+            $name  ?? '',
+            $description ?? '',
+            $price ?? 0,
+            $type ?? '',
+            $allImagePaths ?? '',
+            $isStar ?? false,
+            [],
+        );
+    }
+
     private static function uploadImages(array $imageFiles, string $productName): ?array {
         $uploadedPaths = [];
         $uploadDir = 'uploads/'; // Defina seu diretório de uploads
