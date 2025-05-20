@@ -27,19 +27,10 @@ class ProductRepository
         $listaDeUrlsFiltrada = array_filter($listaDeUrlsTratada, function ($url) {
             return !empty($url);
         });
-        $listaDeUrlsFinal = [];
-        if ($_SERVER['SERVER_NAME'] === 'localhost'){
-            $baseUrl = $_SERVER['SERVER_NAME'] === 'http://localhost:8080/';
-        }else if($_SERVER['SERVER_NAME'] === 'sonomais.com') {
-            $baseUrl = $_SERVER['SERVER_NAME'] === 'sonomais.com';
-        } else {
-            $baseUrl = $_SERVER['SERVER_NAME'] === 'https://darkgreen-moose-358229.hostingersite.com/';
-        }
-        foreach ($listaDeUrlsFiltrada as $url) {
-            $listaDeUrlsFinal[] = $baseUrl . $url;
-        }
-        return array_values($listaDeUrlsFinal);
+        
+        return array_values($listaDeUrlsFiltrada);
     }
+
 
     // private function createTable(): void
     // {
