@@ -122,7 +122,7 @@ class ProductRepository
         }
     }
 
-    public function findAll(int $limit = 10): array
+    public function findAll(int $limit = 100): array
     {
         try {
             $stmt = $this->pdo->prepare("SELECT * FROM produtos LIMIT :limit");
