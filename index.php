@@ -12,6 +12,7 @@ use Vosouza\Sonomais\view\login\LoginView;
 use Vosouza\Sonomais\view\dashboard\DashboardView;
 use Vosouza\Sonomais\view\details\DetailsView;
 use Vosouza\Sonomais\view\list\ProductList;
+use Vosouza\Sonomais\view\about\AboutView;
 use Vosouza\Sonomais\view\home\HomeView;
 use Vosouza\Sonomais\{
     SessionRegistry,
@@ -28,7 +29,8 @@ use Vosouza\Sonomais\controller\{
     DashViewController,
     LoginViewController,
     DetailsViewController,
-    ProductListController
+    ProductListController,
+    AboutController
 };
 
 
@@ -86,9 +88,8 @@ try{
         
     }else if($pathInfo === '/sobre'){
 
-        $repo = new ProductRepository(source: $dataSource);
-        $view = new DetailsView();
-        $controller = new DetailsViewController(view: $view, productRepository: $repo);
+        $view = new AboutView();
+        $controller = new AboutController(view: $view,baseUrl: $baseURL );
         
     }else if($pathInfo === '/dash'){
 

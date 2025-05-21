@@ -354,6 +354,277 @@ footer {
   background-color: #007bbd;
 }
 
+/* --- Seções Específicas da Página "Sobre" --- */
+
+.about-page {
+    padding: 40px 0; /* Espaçamento superior e inferior para a página */
+    background-color: var(--light-bg); /* Use a cor de fundo clara do dashboard */
+}
+
+.about-page .container {
+    max-width: 1000px; /* Limite a largura do conteúdo para melhor leitura */
+    margin: 0 auto; /* Centraliza o container */
+    padding: 0 20px; /* Padding nas laterais em telas menores */
+}
+
+.about-page h1 {
+    font-size: 2.8em;
+    color: var(--primary-color);
+    text-align: center;
+    color: #00abfd;
+    margin-bottom: 50px;
+    position: relative;
+    padding-bottom: 20px; /* Espaço para o underline */
+}
+
+.about-page h1::after { /* Underline animado ou decorativo */
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+     color: #00abfd;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--secondary-color); /* Cor de destaque */
+    border-radius: 2px;
+}
+
+.about-section {
+    margin-bottom: 60px; /* Espaço entre as seções */
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Sombra suave */
+}
+
+.about-section h2 {
+    font-size: 2em;
+    color: var(--dark-bg); /* Use uma cor mais escura para títulos de seção */
+    text-align: center;
+    margin-bottom: 30px;
+    color: #00abfd;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.about-section h2::after { /* Underline similar ao h1, mas menor */
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+     color: #00abfd;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+}
+
+.about-section p {
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: var(--text-color);
+    margin-bottom: 15px;
+    text-align: justify; /* Justifica o texto para melhor leitura */
+}
+
+.about-section p:last-child {
+    margin-bottom: 0; /* Remove margem do último parágrafo na seção */
+}
+
+/* --- Seção de História --- */
+.history-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Colunas responsivas */
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.history-item {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: #fcfcfc;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.history-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.history-item h3 {
+    font-size: 1.4em;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.history-item p {
+    font-size: 0.95em;
+    color: var(--light-text-color);
+    text-align: center; /* Centraliza texto da história */
+}
+
+/* --- Seção de Equipe --- */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Colunas responsivas para membros */
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.team-member {
+    text-align: center;
+    background-color: #fdfdfd;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.team-member img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Imagens redondas */
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid var(--primary-color); /* Borda na cor principal */
+    transition: transform 0.3s ease;
+}
+
+.team-member img:hover {
+    transform: scale(1.05);
+}
+
+.team-member h3 {
+    font-size: 1.3em;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+.team-member p {
+    font-size: 0.9em;
+    color: var(--light-text-color);
+    font-style: italic;
+    text-align: center;
+}
+
+/* --- Seção de Valores --- */
+.about-section.values ul {
+    list-style: none; /* Remove marcadores padrão */
+    padding: 0;
+    margin-top: 20px;
+}
+
+.about-section.values li {
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: var(--text-color);
+    margin-bottom: 10px;
+    padding-left: 30px; /* Espaço para o ícone */
+    position: relative;
+}
+
+.about-section.values li::before { /* Ícone de check ou estrela */
+    content: '\2713'; /* Unicode de checkmark (✓) */
+    font-family: 'Material Icons'; /* Se estiver usando Material Icons */
+    color: var(--success-color); /* Cor verde */
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.about-section.values li strong {
+    color: var(--primary-color);
+}
+
+
+/* Ajustes para Telas Pequenas (menos de 600px, por exemplo) */
+@media (max-width: 599px) {
+    .about-page h1 {
+        font-size: 2em;
+        margin-bottom: 40px;
+    }
+
+    .about-section {
+        padding: 20px;
+        margin-bottom: 40px;
+    }
+
+    .about-section h2 {
+        font-size: 1.6em;
+        margin-bottom: 20px;
+    }
+
+    .about-section p {
+        font-size: 1em;
+        text-align: left; /* Em telas muito pequenas, justificar pode ser ruim */
+    }
+
+    .history-grid, .team-grid {
+        grid-template-columns: 1fr; /* Uma coluna para grids em mobile */
+        gap: 20px;
+    }
+
+    .team-member img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .about-section.values li {
+        font-size: 1em;
+        padding-left: 25px;
+    }
+}
+
+/* Ajustes para Tablets e Telas Médias (600px a 991px) */
+@media (min-width: 600px) and (max-width: 991px) {
+    .about-page h1 {
+        font-size: 2.5em;
+    }
+
+    .about-section {
+        padding: 25px;
+    }
+
+    .about-section h2 {
+        font-size: 1.8em;
+    }
+
+    .history-grid {
+        grid-template-columns: repeat(2, 1fr); /* Duas colunas para história */
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr); /* Duas colunas para equipe */
+    }
+}
+
+/* Ajustes para Desktops (992px em diante) */
+@media (min-width: 992px) {
+    .about-page h1 {
+        font-size: 3em;
+    }
+
+    .about-section {
+        padding: 40px;
+    }
+
+    .about-section h2 {
+        font-size: 2.2em;
+    }
+
+    .history-grid {
+        grid-template-columns: repeat(4, 1fr); /* Quatro colunas para história em desktop */
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(3, 1fr); /* Três colunas para equipe em desktop */
+    }
+}
 
 /* Responsivo */
 @media (max-width: 768px) {
