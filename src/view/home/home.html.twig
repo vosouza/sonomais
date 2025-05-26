@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>Sono+</title>
+    <title>Sono+ JP</title>
     <link rel="stylesheet" href="/css/styles.css?v={{appversion}}">
     {% if products.imageList is not empty %}
         {% for product in products %}
@@ -34,12 +34,14 @@
         <div class="container">
             <div class="featured-grid">
                 <div class="featured-image">
-                    {% if featuredProduct.imageList is not empty %}
+                    {% if featuredProduct.thumbnail is not empty %}
+                        <a href="{{ "/details?productid=" ~ featuredProduct.id }}" data-lightbox="featured-product">
+                            <img src="/{{ featuredProduct.thumbnail }}" alt="{{ featuredProduct.name }}">
+                        </a>
+                    {% else %}
                         <a href="{{ "/details?productid=" ~ featuredProduct.id }}" data-lightbox="featured-product">
                             <img src="/{{ featuredProduct.imageList[0] }}" alt="{{ featuredProduct.name }}">
                         </a>
-                    {% else %}
-                        <img src="/images/placeholder-featured.png" alt="Imagem do produto em destaque não disponível">
                     {% endif %}
                 </div>
                 <div class="featured-content">
@@ -65,7 +67,11 @@
                     <div class="product-item">
                         
                         <a href="{{ "/details?productid=" ~ product.id }}">
-                        <img src={{product.imageList[0]}} alt={{product.name}}>
+                            {% if product.thumbnail is not empty %}
+                                <img src="{{product.thumbnail}}" alt={{product.name}}>
+                            {% else %}
+                                <img src="{{product.imageList[0]}}" alt={{product.name}}>
+                            {% endif %}
                         </a>
                     </div>
                 {% endfor %}

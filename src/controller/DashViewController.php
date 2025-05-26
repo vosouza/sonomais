@@ -31,8 +31,6 @@ class DashViewController implements Controller{
         if($this->isPostCreateProduct()){
 
             $product = Product::fromPost();
-            var_dump($product);
-
             if ($product) {
                 $this->productRepository->insert(product: $product);
             } else {
@@ -44,11 +42,7 @@ class DashViewController implements Controller{
 
     public function editProduct(){
         $this->view->renderEdit();
-        $product = Product::editFromPost();
-        
-        SonoLogger::log( "POST: ".var_dump($_POST, true));
-        SonoLogger::log( "POST: ".var_dump($product, true));
-        
+        $product = Product::editFromPost();        
         
         if($product == null){
             $productId = filter_input(INPUT_GET, "productid", filter: FILTER_VALIDATE_INT);
