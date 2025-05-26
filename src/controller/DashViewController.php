@@ -46,9 +46,12 @@ class DashViewController implements Controller{
         $this->view->renderEdit();
         $product = Product::editFromPost();
         
+        SonoLogger::log( "POST: ".var_dump($_POST, true));
+        SonoLogger::log( "POST: ".var_dump($product, true));
+        
         
         if($product == null){
-            $productId = filter_input(INPUT_GET, "productid", FILTER_VALIDATE_INT);
+            $productId = filter_input(INPUT_GET, "productid", filter: FILTER_VALIDATE_INT);
             $product = $this->productRepository->getById($productId);
             if ($product != null) {
                 $this->editProduct = $product;
@@ -66,7 +69,8 @@ class DashViewController implements Controller{
                     $product->type == '' ? $dbProduct->type : $product->type,
                     $product->image == '' ? $dbProduct->image : $product->image ,
                     $product->isStar,
-                    []
+                    [],
+                    $product->thumbnail == '' ? $dbProduct->thumbnail : $product->thumbnail,
                 );
 
             $this->productRepository->update(product: $newProduct, id: $product->id );
@@ -100,9 +104,9 @@ class DashViewController implements Controller{
         if($this->editProduct == null){
             $products = $this->productRepository->findAll();
             SonoLogger::log(var_export($products, true));
-            $this->view->show(["products"=> $products, "cssversion"=>SessionRegistry::$appVersion]);
+            $this->view->show(["products"=> $products, "cssversion"=>SessionRegistry::$appVersion, "base"=>SessionRegistry::getBaseUrl()]);
         }else{
-            $this->view->show(["product"=> $this->editProduct, "cssversion"=>SessionRegistry::$appVersion]);
+            $this->view->show(["product"=> $this->editProduct, "cssversion"=>SessionRegistry::$appVersion, "base"=>SessionRegistry::getBaseUrl()]);
         }
     }
 

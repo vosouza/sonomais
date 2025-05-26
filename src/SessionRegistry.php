@@ -51,4 +51,14 @@ class SessionRegistry
     public static function setUserId($value): void{
         self::$session[self::$userId] = $value;
     }
+
+    public static function getBaseUrl(): string{
+        if ($_SERVER['SERVER_NAME'] === 'localhost'){
+            return 'http://localhost:8080/';
+        }else if($_SERVER['SERVER_NAME'] === 'sonomais.com') {
+            return  'sonomais.com/';
+        } else {
+            return 'https://darkgreen-moose-358229.hostingersite.com/';
+        }
+    }
 }

@@ -30,6 +30,11 @@
                  </div>
 
                  <div class="form-group">
+                    <label for="thumbnail">Miniatura do Produto (Thumbnail)</label>
+                    <input type="file" id="thumbnail" name="thumbnail" accept="image/*">
+                </div>
+
+                 <div class="form-group">
                      <label for="name">Nome</label>
                      <input type="text" id="name" name="name" placeholder="Digite o nome">
                  </div>
@@ -74,9 +79,16 @@
                  {% for product in products %}
                     <div class="product-item">
                         <div class="product-image-details">
-                            {% if product.imageList|length > 0 %}
-                                <a href="{{ product.imageList.0 }}" data-lightbox="{{ product.id }}">
-                                    <img src="{{ product.imageList.0 }}" alt="{{ product.name }}">
+                            {% if product.thumbnail is empty %}
+                                {% if product.imageList|length > 0 %}
+                                    <a href="{{ product.imageList.0 }}" data-lightbox="{{ product.id }}">
+                                        <img src="{{ product.imageList.0 }}" alt="{{ product.name }}">
+                                    </a>
+                                {% endif %}
+                                <p style="color:red;">Sem thumbnail, utilizando imagem da lista</p>
+                            {% else %}
+                                <a href="{{ product.thumbnail }}" data-lightbox="{{ product.id }}">
+                                    <img src="{{ product.thumbnail }}" alt="{{ product.name }}">
                                 </a>
                             {% endif %}
                             <div class="product-details">

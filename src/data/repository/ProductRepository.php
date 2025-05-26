@@ -99,7 +99,7 @@ class ProductRepository
             $oldImages = $oldProduct ? $oldProduct->imageList : [];
             $newImages = $this->extrairUrls($product->image);
 
-            $stmt = $this->pdo->prepare("UPDATE produtos SET name = :name, description = :description, price = :price, type = :type, image = :image, isStar = :isStar WHERE id = :id");
+            $stmt = $this->pdo->prepare("UPDATE produtos SET name = :name, description = :description, price = :price, type = :type, image = :image, isStar = :isStar, thumbnail = :thumbnail WHERE id = :id");
             $stmt->execute([
                 ':name' => $product->name,
                 ':description' => $product->description,
@@ -107,6 +107,7 @@ class ProductRepository
                 ':type' => $product->type,
                 ':image' => $product->image,
                 ':isStar' => $product->isStar ? 1 : 0,
+                ':thumbnail' => $product->thumbnail,
                 ':id' => $id,
             ]);
             $updated = $stmt->rowCount() > 0;
@@ -128,9 +129,9 @@ class ProductRepository
             $stmt = $this->pdo->prepare("SELECT * FROM produtos LIMIT :limit");
             $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_FUNC, function ($id, $name, $description, $price, $category, $image_url, $isStar) {
+            return $stmt->fetchAll(PDO::FETCH_FUNC, function ($id, $name, $description, $price, $category, $image_url, $isStar, $thumbnail) {
                 $urlList = $this->extrairUrls($image_url);
-                return new Product($id, $name, $description, $price, $category, $image_url, $isStar, $urlList);
+                return new Product($id, $name, $description, $price, $category, $image_url, $isStar, $urlList, $thumbnail);
             });
         } catch (PDOException $e) {
             error_log("Erro ao buscar produtos: " . $e->getMessage());
@@ -144,9 +145,9 @@ class ProductRepository
             $stmt = $this->pdo->prepare("SELECT * FROM produtos Where produtos.isStar > 0 LIMIT :limit");
             $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_FUNC, function ($id, $name, $description, $price, $category, $image_url, $isStar) {
+            return $stmt->fetchAll(PDO::FETCH_FUNC, function ($id, $name, $description, $price, $category, $image_url, $isStar, $thumbnail) {
                 $urlList = $this->extrairUrls($image_url);
-                return new Product($id, $name, $description, $price, $category, $image_url, $isStar, $urlList);
+                return new Product($id, $name, $description, $price, $category, $image_url, $isStar, $urlList, $thumbnail);
             });
         } catch (PDOException $e) {
             error_log("Erro ao buscar produtos: " . $e->getMessage());
@@ -161,9 +162,9 @@ class ProductRepository
             $stmt->bindValue(':productType', $productType, PDO::PARAM_STR);
             $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_FUNC, function ($id, $name, $description, $price, $category, $image_url, $isStar) {
+            return $stmt->fetchAll(PDO::FETCH_FUNC, function ($id, $name, $description, $price, $category, $image_url, $isStar, $thumbnail) {
                 $urlList = $this->extrairUrls($image_url);
-                return new Product($id, $name, $description, $price, $category, $image_url, $isStar, $urlList);
+                return new Product($id, $name, $description, $price, $category, $image_url, $isStar, $urlList, $thumbnail);
             });
         } catch (PDOException $e) {
             error_log("Erro ao buscar produtos: " . $e->getMessage());
@@ -172,7 +173,7 @@ class ProductRepository
     }
 
     public function getById(int $id): ?Product
-    {
+    { 
         try {
             SonoLogger::log('Buscando produto com ID: ' . $id);
             $stmt = $this->pdo->prepare("SELECT * FROM produtos WHERE id = :id");
@@ -197,7 +198,8 @@ class ProductRepository
                     $produc['type'] ?? '',
                     $produc['image'] ?? '',
                     (bool) $produc['isStar'] ?? false,
-                    $urlList ?? []
+                    $urlList ?? [],
+                    $produc['thumbnail'] ?? null
                 );
             } else {
                 SonoLogger::log('Nenhum produto encontrado com o ID: ' . $id);
